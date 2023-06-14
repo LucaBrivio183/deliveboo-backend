@@ -5,6 +5,9 @@ Using Laravel framework we aim to create a back office system that give the regi
 
 ### roadmap
 
+ER diagram of database structure
+![App Screenshot]()
+
 #### milestone 1
 
 -   [x] Create users table in database via Laravel migration.
