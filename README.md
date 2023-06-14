@@ -7,4 +7,10 @@ Using Laravel framework we aim to create a back office system that give the regi
 
 #### milestone 1
 
-[x] A login system that let registered users to access his own dashboard
+-   [x] Create users table in database via Laravel migration.
+-   [x] A login system that let registered users to access his own dashboard.
+-   [] Create restaurants table in database via Laravel migration.
+-   [] Create products table in database via Laravel migration.
+-   [] Proper relationing beetween database tables using Laravel models.
+-   [] Option to create, read, update and delete (CRUD) own restaurant information.
+-   [] Option to create, read, update and delete (CRUD) own Products information.
