@@ -19,7 +19,6 @@
 
                     {{-- {{ __('You are logged in!') }} --}}
 
-                    <h1><a href="{{ route ('admin.projects.index')}}">My projects</a></h1>
                 </div>
             </div>
         </div>
