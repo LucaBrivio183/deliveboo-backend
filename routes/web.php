@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RestaurantController;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +25,10 @@ Route::get('/', function () {
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'verified')->prefix('admin')->name('admin.')->group(function () {
-    //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    //restaurants routes
     Route::resource('restaurants', RestaurantController::class);
 
     //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
