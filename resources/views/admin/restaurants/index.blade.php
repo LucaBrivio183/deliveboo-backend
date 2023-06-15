@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-center align-items-center">
         <h1 class="p-2">I tuo ristoranti</h1>
         {{-- create link --}}
-        <a href="#" class="btn btn-success btn-sm p-2 ms-5">Create</a>
+        <a href="{{ route('admin.restaurants.create') }}" class="btn btn-success btn-sm p-2 ms-5">Create</a>
         </div>
         
         <div class="d-flex flex-wrap justify-content-center align-items-center">
