@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Product;
+use App\Models\Restaurant;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -17,7 +19,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        // find categories with right logged restaurant id
+        $categories = Category::where('restaurant_id', $userRestaurantId)->get();
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -28,8 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
-        return view('admin.categories.create', compact('products'));
+        return view('admin.categories.create');
     }
 
     /**
@@ -44,6 +51,16 @@ class CategoryController extends Controller
 
         $category = new Category();
         $category->fill($data);
+
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        // Save restaurant_id to table
+        $category->restaurant_id = $userRestaurantId;
+        $category->slug = Str::slug($category->name, '-');
+
+        $category->save();
         return to_route('admin.categories.index');
     }
 
@@ -66,7 +83,6 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
     }
 
     /**
@@ -89,6 +105,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return to_route('admin.categories.index');
     }
 }

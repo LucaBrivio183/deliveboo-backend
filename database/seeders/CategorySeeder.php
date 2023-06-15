@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Restaurant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
@@ -18,7 +19,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories = ['Fast-food', 'Pizzeria', 'Sushi', 'Pokè'];
+        $categories = ['Primi', 'Secondi', 'Dolci', 'Bevande'];
 
         Schema::disableForeignKeyConstraints();
         Category::truncate();
@@ -30,6 +31,8 @@ class CategorySeeder extends Seeder
 
             $newCategory->name = $category;
             $newCategory->slug = Str::slug($newCategory->name, '-');
+            $restaurant = Restaurant::inRandomOrder()->first();
+            $newCategory->restaurant_id = $restaurant->id;
 
             $newCategory->save();
         }

@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-
+    // Guarded data will not be auto-filled
+    protected $guarded = [];
     //1 to many relation
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+    //many to 1 relation
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
     }
 }
