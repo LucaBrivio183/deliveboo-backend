@@ -20,6 +20,6 @@
     <h6>€ {{ $product->price }}</h6>
 
     {{-- edit button --}}
-    {{--<a href="{{ route('admin.product.edit', $product) }}" class="btn btn-sm btn-warning my-3">Modifica</a>--}}
+    <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-sm btn-warning my-3">Modifica</a>
 </div>
 @endsection
