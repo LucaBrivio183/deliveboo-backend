@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('typologies', function (Blueprint $table) {
+        Schema::create('restaurant_typology', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 25);
-            $table->string('slug', 30);
-            
+            $table->foreignId('restaurant_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('typology_id')->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('typologies');
+        Schema::dropIfExists('restaurant_typology');
     }
 };
