@@ -18,8 +18,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('restaurant_id');
             $table->foreign('restaurant_id')
-                ->references('id') 
-                ->on('products') 
+                ->references('id')
+                ->on('restaurants')
                 ->cascadeOnDelete();
 
             $table->string('name', 80);
