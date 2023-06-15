@@ -19,7 +19,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+
+        $products = Product::where('restaurant_id', $userRestaurantId)->get();
 
         return view('admin.products.index', compact('products'));
     }
