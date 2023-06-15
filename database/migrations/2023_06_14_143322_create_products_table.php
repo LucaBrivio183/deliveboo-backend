@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->decimal('price', 4, 2);
             $table->float('discount', 3, 2)->default(0);
-            $table->boolean('is_visible')->default(1);
+            $table->boolean('is_visible');
             $table->timestamps();
         });
     }

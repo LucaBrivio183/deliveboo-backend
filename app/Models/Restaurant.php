@@ -12,6 +12,10 @@ class Restaurant extends Model
     // Guarded data will not be auto-filled
     protected $guarded = ['slug', 'image', 'user_id'];
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     //product relationship
     public function products()
     {

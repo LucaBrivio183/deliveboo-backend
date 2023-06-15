@@ -25,7 +25,7 @@
         </div>
         <div class="d-flex justify-content-center align-items-center">
             {{-- Edit link --}}
-            <a href="#" class="btn btn-success btn-sm me-2 p-2">Edit Restaurant</a>
+            <a href="{{ route('admin.restaurants.edit', $restaurant->id) }}" class="btn btn-success btn-sm me-2 p-2">Edit Restaurant</a>
             {{-- Back link --}}
             <a href="{{ route('admin.restaurants.index') }}" class="btn btn-primary btn-sm me-2 p-2">Go Back</a>
             {{-- Delete form --}}
