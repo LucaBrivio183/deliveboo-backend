@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -27,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $products = Product::all();
+        return view('admin.categories.create', compact('products'));
     }
 
     /**
@@ -38,7 +40,11 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $category = new Category();
+        $category->fill($data);
+        return to_route('admin.categories.index');
     }
 
     /**
