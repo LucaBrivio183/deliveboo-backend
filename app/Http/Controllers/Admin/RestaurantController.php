@@ -9,6 +9,8 @@ use App\Http\Requests\UpdateRestaurantRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
 
 class RestaurantController extends Controller
 {
@@ -17,9 +19,11 @@ class RestaurantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Restaurant $restaurant)
     {
-        //
+        $restaurants = Restaurant::all();
+        return view('admin.restaurant.index', compact('restaurants'));
+        
     }
 
     /**
@@ -72,6 +76,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+        return view('admin.restaurant.show', compact('restaurant'));
     }
 
     /**
@@ -125,6 +130,7 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        //
+        $restaurant->delete();
+        return to_route('admin.restaurant.index');
     }
 }
