@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Restaurant;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -26,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.products.create');
     }
 
     /**
@@ -37,7 +40,31 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+
+        $newProduct = new Product();
+        $newProduct->fill($data);
+        $newProduct->slug = Str::slug($data['name']);
+        $newProduct->restaurant_id = $userRestaurantId;
+
+        if(isset($data['is_visible'])) {
+            $newProduct->is_visible = 1;
+        } else {
+            $newProduct->is_visible = 0;
+        };
+
+        // if(isset($data['image'])) {
+        //     $newProduct->image = Storage::put('uploads', $data['image']);
+        // }
+        
+        $newProduct->save();
+        
+        return redirect()->route('admin.products.index')->with('message', 'Prodotto creato con successo');
     }
 
     /**
@@ -59,7 +86,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -71,7 +98,30 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $data = $request->all();
+
+        if(isset($data['is_visible'])) {
+            $product->is_visible = 1;
+        } else {
+            $product->is_visible = 0;
+        };
+
+        // if (isset($data['image'])) {
+        //     if ($product->image) {
+        //         Storage::delete($product->image);
+        //     }
+
+        //     $product->image = Storage::put('uploads', $data['image']);
+        // } else if (empty($data['image'])) {
+        //     if ($product->image) {
+        //         Storage::delete($product->image);
+        //         $product->image = null;
+        //     }
+        // }
+
+        $product->update($data);
+
+        return to_route('admin.products.index');
     }
 
     /**
