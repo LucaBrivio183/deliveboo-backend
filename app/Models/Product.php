@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['slug', 'image'];
     //restaurant relationship
     public function restaurant()
     {
