@@ -8,18 +8,18 @@
             <div class="card p-3 m-2 col-5">
                 <img :src={{$restaurant->image}} class="card-img-top" :alt={{$restaurant->name}}>
                 <div class="card-body">
-                  <h5 class="card-title">{{$restaurant->name}}</h5>
-                  <div>{{$restaurant->slug}}</div>
-                  <div>VAT Numer: {{$restaurant->vat_number}}</div>
-                  <span>Address: {{$restaurant->address}},</span>
-                  <span>{{$restaurant->city}}</span>
-                  <div>Postal Code: {{$restaurant->postal_code}},</div>
-                  <div>Phone Number: +{{$restaurant->phone_number}}</div>
-                  <div>Business Times: {{$restaurant->business_times}}</div>
-                  <div>Delivery Cost: {{$restaurant->delivery_cost}}$</div>
-                  <div>Min Purchase: {{$restaurant->min_purchase}}$</div>
-                  {{-- AGGIUNGERE LE TIPOLOGIEE--}}
-                  <span class="badge bg-secondary"></span></h6>
+                    <h5 class="card-title">{{$restaurant->name}}</h5>
+                    <div>{{$restaurant->slug}}</div>
+                    <div>VAT Numer: {{$restaurant->vat_number}}</div>
+                    <span>Address: {{$restaurant->address}},</span>
+                    <span>{{$restaurant->city}}</span>
+                    <div>Postal Code: {{$restaurant->postal_code}},</div>
+                    <div>Phone Number: +{{$restaurant->phone_number}}</div>
+                    <div>Business Times: {{$restaurant->business_times}}</div>
+                    <div>Delivery Cost: {{$restaurant->delivery_cost}}$</div>
+                    <div>Min Purchase: {{$restaurant->min_purchase}}$</div>
+                    {{-- AGGIUNGERE LE TIPOLOGIEE--}}
+                    <span class="badge bg-secondary"></span></h6>
                 </div>
             </div>
         </div>

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Product;
+use App\Models\Restaurant;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -16,7 +19,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        // find categories with right logged restaurant id
+        $categories = Category::where('restaurant_id', $userRestaurantId)->get();
+
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -26,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -37,7 +47,21 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $category = new Category();
+        $category->fill($data);
+
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        // Save restaurant_id to table
+        $category->restaurant_id = $userRestaurantId;
+        $category->slug = Str::slug($category->name, '-');
+
+        $category->save();
+        return to_route('admin.categories.index');
     }
 
     /**
@@ -59,7 +83,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -71,7 +96,17 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->validated();
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        // Save restaurant_id to table
+        $category->restaurant_id = $userRestaurantId;
+        $category->slug = Str::slug($category->name, '-');
+
+        $category->update($data);
+        return to_route('admin.categories.index');
     }
 
     /**
@@ -82,6 +117,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return to_route('admin.categories.index');
     }
 }

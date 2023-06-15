@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Restaurant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
@@ -15,16 +17,22 @@ class CategorySeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker)
+    public function run()
     {
-        $Categories = ['Fast-food', 'Pizzeria', 'Sushi', 'Pokè'];
+        $categories = ['Primi', 'Secondi', 'Dolci', 'Bevande'];
 
-        foreach ($Categories as $Category) {
+        Schema::disableForeignKeyConstraints();
+        Category::truncate();
+        Schema::enableForeignKeyConstraints();
+
+        foreach ($categories as $category) {
 
             $newCategory = new Category();
 
-            $newCategory->name = $Category;
+            $newCategory->name = $category;
             $newCategory->slug = Str::slug($newCategory->name, '-');
+            $restaurant = Restaurant::inRandomOrder()->first();
+            $newCategory->restaurant_id = $restaurant->id;
 
             $newCategory->save();
         }

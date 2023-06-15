@@ -16,35 +16,36 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+
         $users = [
             [
-            'name' => 'Vittorio Corradi',
-            'email' => 'vitto@prova.it',
-            'password' => Hash::make('password')
+                'name' => 'Vittorio Corradi',
+                'email' => 'vitto@prova.it',
+                'password' => Hash::make('password')
             ],
             [
-            'name' => 'Vittoria Romano',
-            'email' => 'vitta@prova.it',
-            'password' => Hash::make('password')
+                'name' => 'Vittoria Romano',
+                'email' => 'vitta@prova.it',
+                'password' => Hash::make('password')
             ],
             [
-            'name' => 'Eugenia Rossi',
-            'email' => 'eugi@prova.it',
-            'password' => Hash::make('password')
+                'name' => 'Eugenia Rossi',
+                'email' => 'eugi@prova.it',
+                'password' => Hash::make('password')
             ],
             [
-            'name' => 'Giorgia Galbulli Cavazzini',
-            'email' => 'gio@prova.it',
-            'password' => Hash::make('password')
+                'name' => 'Giorgia Galbulli Cavazzini',
+                'email' => 'gio@prova.it',
+                'password' => Hash::make('password')
             ],
             [
-            'name' => 'Luca Brivio',
-            'email' => 'lu@prova.it',
-            'password' => Hash::make('password')
+                'name' => 'Luca Brivio',
+                'email' => 'lu@prova.it',
+                'password' => Hash::make('password')
             ],
         ];
 
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $newUser = new User();
 
             $newUser->name = $user['name'];
