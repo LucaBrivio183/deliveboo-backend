@@ -22,7 +22,7 @@ class RestaurantController extends Controller
     public function index(Restaurant $restaurant)
     {
         $restaurants = Restaurant::all();
-        return view('admin.restaurant.index', compact('restaurants'));
+        return view('admin.restaurants.index', compact('restaurants'));
         
     }
 
@@ -33,6 +33,8 @@ class RestaurantController extends Controller
      */
     public function create()
     {
+        
+        
         return view ('admin.restaurants.create');
     }
 
@@ -44,6 +46,7 @@ class RestaurantController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {   
+        $user_id = auth()->user()->id;
         // Get validated data from form
         $request->validated();
         $data = $request->all();
@@ -61,7 +64,7 @@ class RestaurantController extends Controller
         }
 
         // Fill database with non-guarded data
-        $newRestaurant->user_id = 6;
+        $newRestaurant->user_id = $user_id;
         $newRestaurant->fill($data);
         $newRestaurant->save();
 
@@ -76,7 +79,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        return view('admin.restaurant.show', compact('restaurant'));
+        return view('admin.restaurants.show', compact('restaurant'));
     }
 
     /**
