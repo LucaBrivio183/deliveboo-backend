@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    //1 to many relation
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

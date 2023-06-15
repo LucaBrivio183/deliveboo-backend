@@ -31,7 +31,7 @@ class RestaurantSeeder extends Seeder
             $newRestaurant->slug = Str::slug($newRestaurant->name);
             $newRestaurant->vat_number = rand(1, 500000);
             $newRestaurant->address = $faker->streetAddress();
-            $newRestaurant->postal_code = rand(1,99999);
+            $newRestaurant->postal_code = rand(10000, 99999);
             $newRestaurant->city = 'Roma';
             $newRestaurant->business_times = $faker->time();
             $newRestaurant->phone_number = rand(1, 500000);

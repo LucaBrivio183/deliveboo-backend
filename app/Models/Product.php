@@ -10,10 +10,15 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = ['slug', 'image'];
-
     //restaurant relationship
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    //category relationship
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

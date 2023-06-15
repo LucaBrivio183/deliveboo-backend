@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRestaurantRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateRestaurantRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,19 @@ class UpdateRestaurantRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required',
+                'string',
+                'max:40',
+                Rule::unique('restaurants')->ignore($this->restaurant),
+            ],
+            'address' => 'required|string|max:50',
+            'postal_code' => 'nullable|string|size:5',
+            'business_times' => 'nullable|string|max:255',
+            'phone_number' => 'required|string|max:15',
+            'delivery_cost' => 'required|numeric|lt:100',
+            'min_purchase' => 'required|numeric|lt:100',
+            'image' => 'nullable|image|max:2048',
         ];
     }
 }

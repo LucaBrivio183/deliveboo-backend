@@ -12,8 +12,8 @@ ER diagram of database structure
 
 -   [x] Create users table in database via Laravel migration.
 -   [x] A login system that let registered users to access his own dashboard.
--   [ ] Create restaurants table in database via Laravel migration.
--   [ ] Create products table in database via Laravel migration.
--   [ ] Proper relationing beetween database tables using Laravel models.
+-   [x] Create restaurants table in database via Laravel migration.
+-   [x] Create products table in database via Laravel migration.
+-   [x] Proper relations beetween database tables using Laravel models.
 -   [ ] Option to create, read, update and delete (CRUD) own restaurant information.
 -   [ ] Option to create, read, update and delete (CRUD) own Products information.
