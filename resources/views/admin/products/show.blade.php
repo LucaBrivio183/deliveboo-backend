@@ -4,7 +4,7 @@
 <div class="container my-3">
     {{-- image --}}
     @if ($product->image)
-        <img src="{{ $product->image }}" alt="{{ $product->title }}" class="my-3">
+        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="my-3">
     @endif
 
     {{-- name --}}
