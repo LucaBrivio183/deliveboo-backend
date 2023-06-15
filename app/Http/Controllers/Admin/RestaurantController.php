@@ -7,6 +7,10 @@ use App\Models\Restaurant;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
 
 class RestaurantController extends Controller
 {
@@ -15,9 +19,11 @@ class RestaurantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Restaurant $restaurant)
     {
-        //
+        $restaurants = Restaurant::all();
+        return view('admin.restaurant.index', compact('restaurants'));
+        
     }
 
     /**
@@ -27,7 +33,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        //
+        return view ('admin.restaurants.create');
     }
 
     /**
@@ -37,8 +43,29 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRestaurantRequest $request)
-    {
-        //
+    {   
+        // Get validated data from form
+        $request->validated();
+        $data = $request->all();
+
+        $newRestaurant = new Restaurant();
+
+        // Restaurant slug
+        $newRestaurant->slug = Str::slug($data['name']);
+
+        // Save image in storage
+        if(isset($data['image'])) {
+            $path_img = Storage::put('uploads', $data['image']);
+            
+            $newRestaurant->image = $path_img;
+        }
+
+        // Fill database with non-guarded data
+        $newRestaurant->user_id = 6;
+        $newRestaurant->fill($data);
+        $newRestaurant->save();
+
+        return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -49,6 +76,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+        return view('admin.restaurant.show', compact('restaurant'));
     }
 
     /**
@@ -59,7 +87,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        //
+        return view('admin.restaurants.edit', compact('restaurant'));
     }
 
     /**
@@ -70,8 +98,28 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
-    {
-        //
+    {   
+        // Get validated data from form
+        $request->validated();
+        $data = $request->all();
+
+        // Edited restaurant slug
+        $restaurant->slug = Str::slug($data['name']);
+        
+        // Edited image
+        if (isset($data['image'])) {                                    //if there is an image in the form data
+            if ($restaurant->image) {                                   //if there was an image in the database
+                Storage::delete($restaurant->image);                    //delete image from storage
+            }
+
+            $path_img = Storage::put('uploads', $data['image']);        //Save new image in storage
+
+            $restaurant->image = $path_img;                             //Save new image in database
+        }
+
+        $restaurant->update($data);
+
+        return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -82,6 +130,7 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        //
+        $restaurant->delete();
+        return to_route('admin.restaurant.index');
     }
 }

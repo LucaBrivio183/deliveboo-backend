@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
+
 <div class="container">
     <h2 class="fs-4 text-secondary my-4">
         {{ __('Dashboard') }}
@@ -9,7 +9,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">{{ __('User Dashboard') }}</div>
-                
+                 <a href="{{ route('admin.restaurants.index') }}"> I tuoi ristoranti</a>
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
