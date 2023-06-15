@@ -83,6 +83,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -94,7 +96,17 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->validated();
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        // Save restaurant_id to table
+        $category->restaurant_id = $userRestaurantId;
+        $category->slug = Str::slug($category->name, '-');
+
+        $category->update($data);
+        return to_route('admin.categories.index');
     }
 
     /**
