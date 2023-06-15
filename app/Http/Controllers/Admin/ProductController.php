@@ -84,6 +84,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $old_name = $product->name; // save name to recall in message
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('message', "Prodotto $old_name eliminato con successo");
     }
 }
