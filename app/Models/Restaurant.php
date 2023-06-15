@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Restaurant extends Model
 {
     use HasFactory;
-    //product relationship
+
+    //1 to many relation
     public function products()
     {
         return $this->hasMany(Product::class);
