@@ -21,4 +21,10 @@ class Restaurant extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    //typologies relationship
+    public function typologies()
+    {
+        return $this->belongsToMany(Typology::class);
+    }
 }

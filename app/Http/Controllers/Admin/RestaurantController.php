@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
+use App\Models\Typology;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -33,9 +34,9 @@ class RestaurantController extends Controller
      */
     public function create()
     {
+        $typologies = Typology::all();
         
-        
-        return view ('admin.restaurants.create');
+        return view ('admin.restaurants.create', compact('typologies'));
     }
 
     /**
@@ -68,6 +69,10 @@ class RestaurantController extends Controller
         $newRestaurant->fill($data);
         $newRestaurant->save();
 
+        if(isset($data['typologies'])) {
+            $newRestaurant->typologies()->sync($data['typologies']);
+        }
+
         return redirect()->route('admin.dashboard');
     }
 
@@ -90,7 +95,9 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        return view('admin.restaurants.edit', compact('restaurant'));
+        $typologies = Typology::all();
+
+        return view('admin.restaurants.edit', compact('restaurant', 'typologies'));
     }
 
     /**
@@ -109,6 +116,12 @@ class RestaurantController extends Controller
         // Edited restaurant slug
         $restaurant->slug = Str::slug($data['name']);
         
+        if(isset($data['typologies'])) {
+            $restaurant->typologies()->sync($data['typologies']);
+        } else {
+            $restaurant->typologies()->detach();
+        }
+
         // Edited image
         if (isset($data['image'])) {                                    //if there is an image in the form data
             if ($restaurant->image) {                                   //if there was an image in the database
