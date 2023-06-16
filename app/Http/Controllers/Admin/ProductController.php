@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -24,6 +25,9 @@ class ProductController extends Controller
         // Find the current user's restaurant ID
         $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
 
+        $products = Product::where('restaurant_id', $userRestaurantId)->get();
+  
+
         return $userRestaurantId;
     }
 
@@ -36,8 +40,10 @@ class ProductController extends Controller
     {
         // Find the current restaurant's products
         $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
+      //category from selected restaurant
+        $categories = Category::where('restaurant_id', $userRestaurantId)->get();
 
-        return view('admin.products.index', compact('products'));
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     /**
@@ -47,7 +53,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        //category from selected restaurant
+        $categories = Category::where('restaurant_id', $userRestaurantId)->get();
+
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -65,7 +78,7 @@ class ProductController extends Controller
         $newProduct->slug = Str::slug($data['name']);
         $newProduct->restaurant_id = $this->getCurrentUserRestaurant();
 
-        if(isset($data['is_visible'])) {
+        if (isset($data['is_visible'])) {
             $newProduct->is_visible = 1;
         } else {
             $newProduct->is_visible = 0;
@@ -74,9 +87,9 @@ class ProductController extends Controller
         // if(isset($data['image'])) {
         //     $newProduct->image = Storage::put('uploads', $data['image']);
         // }
-        
+
         $newProduct->save();
-        
+
         return redirect()->route('admin.products.index')->with('message', 'Prodotto creato con successo');
     }
 
@@ -124,6 +137,7 @@ class ProductController extends Controller
         // In order to set is_visible property, we need to rewrite $data
         if(isset($data['is_visible'])) {
             $data['is_visible'] = 1;
+
         } else {
             $data['is_visible'] = 0;
         };
