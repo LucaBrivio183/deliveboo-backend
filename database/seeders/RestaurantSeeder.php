@@ -6,7 +6,8 @@ use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
+//use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class RestaurantSeeder extends Seeder
@@ -16,30 +17,31 @@ class RestaurantSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker)
+    public function run()
     {
-        for($i = 1; $i <= 5; $i++) {
+        $restaurants = config('restaurants');
+        Schema::disableForeignKeyConstraints();
+        Restaurant::truncate();
+        Schema::enableForeignKeyConstraints();
 
+        foreach ($restaurants as $restaurant){
             $newRestaurant = new Restaurant();
-
             // Seed one restaurant for each user
-            $user = User::where('id', $i)->first();
-            $newRestaurant->user_id = $user->id;
+            
+            $newRestaurant->user_id = $restaurant['user_id'];
 
-            // Mix of faked and static data
-            $newRestaurant->name = $faker->company();
-            $newRestaurant->slug = Str::slug($newRestaurant->name);
-            $newRestaurant->vat_number = rand(1, 500000);
-            $newRestaurant->address = $faker->streetAddress();
-            $newRestaurant->postal_code = rand(10000, 99999);
-            $newRestaurant->city = 'Roma';
-            $newRestaurant->business_times = $faker->time();
-            $newRestaurant->phone_number = rand(1, 500000);
-            $newRestaurant->delivery_cost = 5.2;
-            $newRestaurant->min_purchase = 5.2;
-            $newRestaurant->image = 'prova';
-
+            $newRestaurant->name = $restaurant['name'];
+            $newRestaurant->slug = $restaurant['slug'];
+            $newRestaurant->vat_number = $restaurant['vat_number'];
+            $newRestaurant->address = $restaurant['address'];
+            $newRestaurant->postal_code = $restaurant['postal_code'];
+            $newRestaurant->city = $restaurant['city'];
+            $newRestaurant->business_times = $restaurant['business_times'];
+            $newRestaurant->phone_number = $restaurant['phone_number'];
+            $newRestaurant->delivery_cost = $restaurant['delivery_cost'];
+            $newRestaurant->min_purchase = $restaurant['min_purchase'];
+            $newRestaurant->image = $restaurant['image'];
             $newRestaurant->save();
         }
-    }
+   }
 }
