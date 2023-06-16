@@ -60,7 +60,7 @@ return [
         [
             'user_id'=>'5',
             'name'=>'Pizzeria da Giggino',
-            'slug'=>'pizzeria-da-diggino',
+            'slug'=>'pizzeria-da-giggino',
             'vat_number'=>'124533345',
             'address'=>'Vicolo della Renella, 94',
             'postal_code'=>'00153',
