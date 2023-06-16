@@ -31,6 +31,7 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|numeric|min:1|lte:20',
             'discount' => 'required|numeric|lte:0.99',
             'is_visible' => 'boolean',
+            'category_id' => 'nullable'
         ];
     }
 }

@@ -11,13 +11,24 @@
     {{-- message --}}
     @include('partials.message')
 
-    <div class="container d-flex gap-3">
-    {{-- element to repeat --}}
-    @foreach ($products as $product)
-    {{-- card --}}
-    <div class="card" style="width: 18rem;">
+    <div class="row">
+      @foreach ($categories as $category)
+        <div class="d-flex justify-content-between align-items-center">
+          <h3>{{ $category->name }}</h3>
+        </div>
+        @foreach ($category->products as $product)
+        <div class="d-flex justify-content-between align-items-center">
+          <h3>{{ $product->name }}</h3>
+        </div>
+        @endforeach
+      @endforeach
+      
+      {{-- element to repeat --}}
+      @foreach ($products as $product)
+      {{-- card --}}
+      <div class="card"">
         {{-- image --}}
-        <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}">
+        <img src="{{ $product->image }}" class="card-img-top h-50" alt="{{ $product->name }}">
         <div class="card-body">
             {{-- name --}}
             <h5 class="card-title">{{ $product->name }}</h5>
@@ -67,9 +78,8 @@
             </div>
         </div>
         {{-- /delete modal --}}
-    </div>
-    @endforeach
-    {{-- element to repeat --}}
+      </div>
+      @endforeach
     </div>
 </div>
 @endsection
