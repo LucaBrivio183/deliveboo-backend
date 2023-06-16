@@ -12,74 +12,57 @@
     @include('partials.message')
 
     <div class="row">
-      @foreach ($categories as $category)
-        <div class="d-flex justify-content-between align-items-center">
-          <h3>{{ $category->name }}</h3>
-        </div>
-        @foreach ($category->products as $product)
-        <div class="d-flex justify-content-between align-items-center">
-          <h3>{{ $product->name }}</h3>
-        </div>
-        @endforeach
-      @endforeach
-      
-      {{-- element to repeat --}}
-      @foreach ($products as $product)
-      {{-- card --}}
-      <div class="card"">
-        {{-- image --}}
-        <img src="{{ $product->image }}" class="card-img-top h-50" alt="{{ $product->name }}">
-        <div class="card-body">
-            {{-- name --}}
-            <h5 class="card-title">{{ $product->name }}</h5>
-            {{-- description --}}
-            <p class="card-text">{{ $product->description }}</p>
-            {{-- price --}}
-            <h6 class="card-title">€ {{ $product->price }}</h6>
-            {{-- actions --}}
-            <ul class="list-unstyled d-flex">
-                {{-- show --}}
-                <li>
-                    <a href="{{ route('admin.products.show', $product) }}" class="btn btn-sm btn-primary mt-3 mx-1">Dettagli</a>
-                </li>
-                {{-- edit --}}
-                <li>
-                    <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-sm btn-warning mt-3 mx-1">Modifica</a>
-                </li>
-                {{-- delete --}}
-                <li>
-                    {{-- button trigger delete modal --}}
-                    <a href="#" class="btn btn-sm btn-danger mt-3 mx-1" data-bs-toggle="modal" data-bs-target="#product-{{ $product->id }}">Elimina</a>
-                </li>
-            </ul>
-            {{-- /actions --}}
-        </div>
+      {{-- accordion --}}
+      <div class="accordion accordion-flush" id="accordionExample">
+        @foreach ($categories as $category)
+          {{-- accordion item for each category --}}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $category->id }}" aria-controls="collapse{{ $category->id }}">
+                {{ $category->name }}
+              </button>
+            </h2>
+            <div id="collapse{{ $category->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              {{-- accordion  body--}}
+              <div class="accordion-body">
+                {{-- products table--}}
+                <table class="table table-hover align-middle">
 
-        {{-- delete modal --}}
-        <div class="modal fade" id="product-{{ $product->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Warning</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  Vuoi cancellare il prodotto <strong>{{ $product->name }}</strong>?
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                  <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger my-1">Elimina</button>
-                  </form>
-                </div>
+                  <tbody>
+                      @foreach ($category->products as $product)
+                          <tr onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer">
+                              <td>{{ $product->name }}</td>
+                              <td>{{ $product->description }}</td>
+                              <td>{{ $product->price }} €</td>
+                              <td>
+                                  <div class="d-flex gap-2">
+                                      <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                      <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
+                                          @csrf
+                                          @method('DELETE')
+                                          <button type="submit" class="btn btn-danger btn-sm">
+                                              <i class="fa-solid fa-trash"></i>
+                                          </button>
+                                      </form>
+                                  </div>
+                              </td>
+                          </tr>
+                          
+                      @endforeach
+                  </tbody>
+              </table>
+                {{-- /products table--}}
               </div>
+              {{-- /accordion  body--}}
             </div>
-        </div>
-        {{-- /delete modal --}}
+
+          </div>
+          {{-- /accordion item for each category --}}
+        @endforeach
+      
       </div>
-      @endforeach
+      {{-- /accordion --}}
+
     </div>
 </div>
 @endsection
