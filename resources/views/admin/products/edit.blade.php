@@ -4,22 +4,30 @@
     <div class="container">
         <h2 class="fs-4 text-secondary my-4">Edit product: {{ $product->name }}</h2>
 
-        {{-- @include('partials.errors') --}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" class="form-input-image">
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $product->name) }}" required>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description">{{ $product->description }}</textarea>
+                <textarea class="form-control" id="description" name="description">{{ old('description', $product->description) }}</textarea>
             </div>
             <div class="mb-3">
                 <label for="ingredients" class="form-label">Ingredients</label>
-                <textarea class="form-control" id="ingredients" name="ingredients">{{ $product->ingredients }}</textarea>
+                <textarea class="form-control" id="ingredients" name="ingredients">{{ old('ingredients', $product->ingredients) }}</textarea>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
@@ -27,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label for="discount" class="form-label">Discount</label>
-                <input type="number" step="0.01" class="form-control" id="discount" name="discount" value="{{ old('discount', $product->discount) }}" max="0.99" required>
+                <input type="number" step="0.01" class="form-control" id="discount" name="discount" value="{{ old('discount', $product->discount) }}" min="0" max="0.99" required>
             </div>
             <div class="mb-3 form-check form-switch">
                 <label class="form-check-label" for="is_visible">Visible product</label>
