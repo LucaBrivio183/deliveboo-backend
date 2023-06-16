@@ -26,7 +26,7 @@ class ProductController extends Controller
         $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
 
         $products = Product::where('restaurant_id', $userRestaurantId)->get();
-  
+
 
         return $userRestaurantId;
     }
@@ -40,8 +40,8 @@ class ProductController extends Controller
     {
         // Find the current restaurant's products
         $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
-      //category from selected restaurant
-        $categories = Category::where('restaurant_id', $userRestaurantId)->get();
+        //category from selected restaurant
+        $categories = Category::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
 
         return view('admin.products.index', compact('products', 'categories'));
     }
@@ -135,9 +135,8 @@ class ProductController extends Controller
         $product->slug = Str::slug($data['name']);
 
         // In order to set is_visible property, we need to rewrite $data
-        if(isset($data['is_visible'])) {
+        if (isset($data['is_visible'])) {
             $data['is_visible'] = 1;
-
         } else {
             $data['is_visible'] = 0;
         };
@@ -154,7 +153,7 @@ class ProductController extends Controller
         //         $product->image = null;
         //     }
         // }
-        
+
         $product->update($data);
 
         return to_route('admin.products.index');
@@ -169,7 +168,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $old_name = $product->name; // save name to recall in message
-        
+
         Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $old_name)->delete();
 
         return redirect()->route('admin.products.index')->with('message', "Prodotto $old_name eliminato con successo");
