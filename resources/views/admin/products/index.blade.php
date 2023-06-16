@@ -27,7 +27,6 @@
               <div class="accordion-body">
                 {{-- products table--}}
                 <table class="table table-hover align-middle">
-
                   <tbody>
                       @foreach ($category->products as $product)
                           <tr onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer">
@@ -37,21 +36,37 @@
                               <td>
                                   <div class="d-flex gap-2">
                                       <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                      <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="btn btn-danger btn-sm">
-                                              <i class="fa-solid fa-trash"></i>
-                                          </button>
-                                      </form>
+                                      {{-- button trigger delete modal --}}
+                                      <a href="#" class="btn btn-sm btn-danger mt-3 mx-1" data-bs-toggle="modal" data-bs-target="#product-{{ $product->id }}"> <i class="fa-solid fa-trash"></i></a>                                      
                                   </div>
                               </td>
                           </tr>
-                          
+                             {{-- delete modal --}}
+                              <div class="modal fade" id="product-{{ $product->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Warning</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                      <div class="modal-body">
+                       Vuoi davvero cancellare il prodotto <strong>{{ $product->name }}</strong>?
+                      </div>
+                      <div class="modal-footer">
+                      <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
+                      @csrf
+                          @method('DELETE')
+                    
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                       <button class="btn btn-danger my-1">Elimina</button>
+                   </form>
+                   </div>
                       @endforeach
                   </tbody>
               </table>
                 {{-- /products table--}}
+
+
               </div>
               {{-- /accordion  body--}}
             </div>

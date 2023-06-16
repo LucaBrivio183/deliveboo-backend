@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Restaurant;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -17,6 +20,21 @@ class UpdateProductRequest extends FormRequest
     }
 
     /**
+     * Get the current user's restaurant.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCurrentUserRestaurant()
+    {
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+
+        return $userRestaurantId;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
@@ -24,12 +42,20 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:80',
+            'name' => [
+                'required',
+                'string',
+                'max:80',
+                // The product must be unique in the current user's restaurant
+                Rule::unique('products')->where(function (Builder $query) {
+                    return $query->where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', '!=', $this->product->name);
+                })
+            ],
             'description' => 'nullable|string',
             'ingredients' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'price' => 'required|numeric|min:1|lte:20',
-            'discount' => 'required|numeric|lte:0.99',
+            'discount' => 'required|numeric|min:0|lte:0.99',
             'is_visible' => 'boolean',
         ];
     }

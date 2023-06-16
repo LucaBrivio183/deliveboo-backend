@@ -14,19 +14,33 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     /**
+     * Get the current user's restaurant.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCurrentUserRestaurant()
+    {
+        // Find the current user ID
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+
+        $products = Product::where('restaurant_id', $userRestaurantId)->get();
+  
+
+        return $userRestaurantId;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // Find the current user ID
-        $currentUserId = auth()->user()->id;
-        // Find the current user's restaurant ID
-        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
-        //products from right restaurants
-        $products = Product::where('restaurant_id', $userRestaurantId)->get();
-        //category from selected restaurant
+        // Find the current restaurant's products
+        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
+      //category from selected restaurant
         $categories = Category::where('restaurant_id', $userRestaurantId)->get();
 
         return view('admin.products.index', compact('products', 'categories'));
@@ -59,15 +73,10 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        // Find the current user ID
-        $currentUserId = auth()->user()->id;
-        // Find the current user's restaurant ID
-        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
-
         $newProduct = new Product();
         $newProduct->fill($data);
         $newProduct->slug = Str::slug($data['name']);
-        $newProduct->restaurant_id = $userRestaurantId;
+        $newProduct->restaurant_id = $this->getCurrentUserRestaurant();
 
         if (isset($data['is_visible'])) {
             $newProduct->is_visible = 1;
@@ -92,6 +101,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
+
         return view('admin.products.show', compact('product'));
     }
 
@@ -103,6 +114,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
+
         return view('admin.products.edit', compact('product'));
     }
 
@@ -115,12 +128,18 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $data = $request->all();
+        $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        if (isset($data['is_visible'])) {
-            $product->is_visible = 1;
+        $data = $request->validated();
+
+        $product->slug = Str::slug($data['name']);
+
+        // In order to set is_visible property, we need to rewrite $data
+        if(isset($data['is_visible'])) {
+            $data['is_visible'] = 1;
+
         } else {
-            $product->is_visible = 0;
+            $data['is_visible'] = 0;
         };
 
         // if (isset($data['image'])) {
@@ -135,7 +154,7 @@ class ProductController extends Controller
         //         $product->image = null;
         //     }
         // }
-
+        
         $product->update($data);
 
         return to_route('admin.products.index');
@@ -150,7 +169,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $old_name = $product->name; // save name to recall in message
-        $product->delete();
+        
+        Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $old_name)->delete();
 
         return redirect()->route('admin.products.index')->with('message', "Prodotto $old_name eliminato con successo");
     }

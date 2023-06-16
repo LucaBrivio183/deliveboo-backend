@@ -49,7 +49,7 @@
             {{-- Discount --}}
             <div class="mb-3">
                 <label for="discount" class="form-label">Discount</label>
-                <input type="number" step="0.01" class="form-control" id="discount" name="discount" value="{{ old('discount', 0) }}" max="0.99" required>
+                <input type="number" step="0.01" class="form-control" id="discount" name="discount" value="{{ old('discount', 0) }}" min="0" max="0.99" required>
             </div>
             {{-- Visible --}}
             <div class="mb-3 form-check form-switch">
