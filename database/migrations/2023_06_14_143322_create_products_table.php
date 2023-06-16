@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
 
             //restaurant id
-            $table->unsignedBigInteger('restaurant_id');
-            $table->foreign('restaurant_id')
+            $table->foreignId('restaurant_id')
                 ->references('id')
                 ->on('restaurants')
                 ->cascadeOnDelete();

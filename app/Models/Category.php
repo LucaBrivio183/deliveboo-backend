@@ -15,9 +15,4 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
-    //many to 1 relation
-    public function restaurant()
-    {
-        return $this->belongsTo(Restaurant::class);
-    }
 }

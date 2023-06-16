@@ -15,12 +15,6 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            //restaurant id
-            $table->unsignedBigInteger('restaurant_id');
-            $table->foreign('restaurant_id')
-                ->references('id')
-                ->on('restaurants')
-                ->cascadeOnDelete();
 
             $table->string('name', 40);
             $table->string('slug', 50);

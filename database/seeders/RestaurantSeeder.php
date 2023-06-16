@@ -20,6 +20,7 @@ class RestaurantSeeder extends Seeder
     public function run()
     {
         $restaurants = config('restaurants');
+        
         Schema::disableForeignKeyConstraints();
         Restaurant::truncate();
         Schema::enableForeignKeyConstraints();
