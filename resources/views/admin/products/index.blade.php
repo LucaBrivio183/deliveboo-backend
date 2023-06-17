@@ -29,7 +29,7 @@
                 <table class="table table-hover align-middle">
                   <tbody>
                       @foreach ($category->products as $product)
-                          <tr>  {{-- onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer" --}}
+                          <tr onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer">
                               <td>{{ $product->name }}</td>
                               <td>{{ $product->description }}</td>
                               <td>{{ $product->price }} €</td>

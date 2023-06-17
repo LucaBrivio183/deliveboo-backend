@@ -34,7 +34,7 @@
             {{-- category select --}}
             <div class="mb-3">
                 <label for="category_id" class="form-label">Seleziona categoria</label>
-                <select class="form-select" name="category_id" id="category_id">
+                <select class="form-select" name="category_id" id="category_id" required>
                     <option value="">Categories</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
