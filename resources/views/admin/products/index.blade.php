@@ -34,7 +34,7 @@
                               <td>{{ $product->description }}</td>
                               <td>{{ $product->price }} €</td>
                               <td>
-                                  <div class="d-flex gap-2">
+                                  <div class="d-flex gap-2" onclick="event.stopPropagation()">
                                       <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
                                       {{-- button trigger delete modal --}}
                                       <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#product-{{ $product->id }}"> <i class="fa-solid fa-trash"></i></a>                                      
@@ -52,7 +52,7 @@
                               </div>
                             <div class="modal-body">
                             Vuoi cancellare il prodotto <strong>{{ $product->name }}</strong>?
-                            </div>
+                          </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
                             <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
