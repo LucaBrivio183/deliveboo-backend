@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Controllers\Admin\ProductController;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Restaurant;
@@ -22,66 +23,15 @@ class StoreProductRequest extends FormRequest
     }
 
     /**
-     * Get the current user's restaurant.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getCurrentUserRestaurant()
-    {
-        // Find the current user ID
-        $currentUserId = auth()->user()->id;
-        // Find the current user's restaurant ID
-        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
-
-        return $userRestaurantId;
-    }
-
-    /**
-     * Get the current restaurant's products.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getCurrentRestaurantProducts()
-    {
-        // Find the current restaurant's products
-        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
-
-        return $products;
-    }
-
-    /**
-     * Get the current restaurant's categories.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getCurrentRestaurantCategories()
-    {
-        $products = $this->getCurrentRestaurantProducts();
-
-        $productCategories = [];
-
-        // Find all the products' categories
-        foreach ($products as $product) {
-            $category = $product->category_id;
-            if(!in_array($category, $productCategories)) {
-                array_push($productCategories, $category);
-            }
-        }
-
-        // Query to select all the categories contained into the given array
-        $categories = Category::whereIn('id', $productCategories)->get();
-
-        return $categories;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(ProductController $request)
     {
-        $categories = $this->getCurrentRestaurantCategories();
+        $userRestaurant = $request->getCurrentUserRestaurant();
+
+        $categories = $request->getCurrentRestaurantCategories();
 
         // Get the current categories id
         $categories_id = [];
@@ -99,8 +49,9 @@ class StoreProductRequest extends FormRequest
                 'string',
                 'max:80',
                 // The product must be unique in the current user's restaurant
-                Rule::unique('products')->where(function (Builder $query) {
-                    return $query->where('restaurant_id', $this->getCurrentUserRestaurant());
+                // We need to "use" $userRestaurant in order to define the variable
+                Rule::unique('products')->where(function (Builder $query) use ($userRestaurant) {
+                    return $query->where('restaurant_id', $userRestaurant);
                 })
             ],
             'description' => 'nullable|string',
