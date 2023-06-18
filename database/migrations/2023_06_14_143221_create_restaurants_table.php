@@ -18,7 +18,6 @@ return new class extends Migration
 
             // Foreign id to connect user-restaurant relationship
             $table->foreignId('user_id')
-            ->nullable()
             ->constrained()
             ->cascadeOnDelete();
 

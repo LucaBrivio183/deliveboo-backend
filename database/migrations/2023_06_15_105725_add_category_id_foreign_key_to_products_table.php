@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //category id
-            $table->unsignedBigInteger('category_id')->after('id')->nullable();
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('categories')
-                ->nullOnDelete();
+            $table->foreignId('category_id')
+                ->after('id')
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 

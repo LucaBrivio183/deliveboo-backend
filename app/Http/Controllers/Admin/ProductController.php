@@ -25,10 +25,45 @@ class ProductController extends Controller
         // Find the current user's restaurant ID
         $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
 
-        $products = Product::where('restaurant_id', $userRestaurantId)->get();
-
-
         return $userRestaurantId;
+    }
+
+    /**
+     * Get the current restaurant's products.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCurrentRestaurantProducts()
+    {
+        // Find the current restaurant's products
+        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
+
+        return $products;
+    }
+
+    /**
+     * Get the current restaurant's categories.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCurrentRestaurantCategories()
+    {
+        $products = $this->getCurrentRestaurantProducts();
+
+        $productCategories = [];
+
+        // Find all the products' categories
+        foreach ($products as $product) {
+            $category = $product->category_id;
+            if(!in_array($category, $productCategories)) {
+                array_push($productCategories, $category);
+            }
+        }
+
+        // Query to select all the categories contained into the given array
+        $categories = Category::whereIn('id', $productCategories)->get();
+
+        return $categories;
     }
 
     /**
@@ -38,10 +73,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // Find the current restaurant's products
-        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
-        //category from selected restaurant
-        $categories = Category::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
+        $products = $this->getCurrentRestaurantProducts();
+
+        $categories = $this->getCurrentRestaurantCategories();
 
         return view('admin.products.index', compact('products', 'categories'));
     }
@@ -53,12 +87,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // Find the current user ID
-        $currentUserId = auth()->user()->id;
-        // Find the current user's restaurant ID
-        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
-        //category from selected restaurant
-        $categories = Category::where('restaurant_id', $userRestaurantId)->get();
+        $categories = $this->getCurrentRestaurantCategories();
 
         return view('admin.products.create', compact('categories'));
     }
