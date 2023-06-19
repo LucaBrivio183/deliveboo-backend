@@ -1,0 +1,17 @@
+@use "../partials/variables" as *;
+
+#dashboard-container {
+    h2, h3 {
+        color: $ms_primary_text;
+    }
+
+    #products-container {
+        background-color: rgba(250, 242, 50, 0.9);
+        //background-color: rgba(104, 252, 255, 0.9);
+    }
+
+    #restaurant-container {
+        background-color: rgba(104, 252, 255, 0.9);
+        //background-color: rgba(250, 242, 50, 0.9);
+    }
+}

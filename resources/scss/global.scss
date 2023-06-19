@@ -1,0 +1,16 @@
+// variables
+@import "partials/variables";
+
+body {
+    background-color: $ms_primary_background_light;
+    background-image: url('/background-green.png');
+    background-repeat: no-repeat;
+    
+    #dashboard-container {
+        //background-image: url('/logo-green.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: right;
+        background-position-y: center;
+    }
+}
