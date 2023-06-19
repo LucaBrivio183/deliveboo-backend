@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('email', 50)->nullable();
             $table->string('address', 50);
             $table->string('phone_number', 15);
+            $table->decimal('total_price', 5, 2)->unsigned();
 
             $table->timestamps();
         });
