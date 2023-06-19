@@ -34,7 +34,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        $typologies = Typology::all();
+        $typologies = Typology::orderBy('name')->get();
         $currentUser = auth()->user();
         
         return view ('admin.restaurants.create', compact('typologies', 'currentUser'));
@@ -48,7 +48,7 @@ class RestaurantController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {   
-        $user_id = auth()->user()->id;
+        $currentUserId = auth()->user()->id;
         // Get validated data from form
         $request->validated();
         $data = $request->all();
@@ -58,6 +58,14 @@ class RestaurantController extends Controller
         // Restaurant slug
         $newRestaurant->slug = Str::slug($data['name']);
 
+        // If delivery cost or minimum purchase are specified in the form, save the specified input. Otherwise, default to 0.
+        if(isset($data['delivery_cost'])) {
+            $newRestaurant->delivery_cost = $data['delivery_cost'];
+        }
+        if(isset($data['min_purchase'])) {
+            $newRestaurant->min_purchase = $data['min_purchase'];
+        }
+
         // Save image in storage
         if(isset($data['image'])) {
             $path_img = Storage::put('uploads', $data['image']);
@@ -66,7 +74,7 @@ class RestaurantController extends Controller
         }
 
         // Fill database with non-guarded data
-        $newRestaurant->user_id = $user_id;
+        $newRestaurant->user_id = $currentUserId;
         $newRestaurant->fill($data);
         $newRestaurant->save();
 
@@ -101,11 +109,10 @@ class RestaurantController extends Controller
             // Stop users from editing other users' restaurants 
             if ($currentUserId === $restaurant->user_id) {                                     
                 
-                $typologies = Typology::all();
+                $typologies = Typology::orderBy('name')->get();
         
                 return view('admin.restaurants.edit', compact('restaurant', 'typologies'));
             } else {
-
                 abort(403);     //access denied
             }
     }
@@ -126,6 +133,18 @@ class RestaurantController extends Controller
         // Edited restaurant slug
         $restaurant->slug = Str::slug($data['name']);
         
+        // If delivery cost or minimum purchase are specified in the form, save the specified input. Otherwise, default to 0.
+        if(isset($data['delivery_cost'])) {
+            $restaurant->delivery_cost = $data['delivery_cost'];
+        } else {
+            $restaurant->delivery_cost = 0;
+        }
+        if(isset($data['min_purchase'])) {
+            $restaurant->min_purchase = $data['min_purchase'];
+        } else {
+            $restaurant->min_purchase = 0;
+        }
+
         if(isset($data['typologies'])) {
             $restaurant->typologies()->sync($data['typologies']);
         } else {
@@ -157,6 +176,6 @@ class RestaurantController extends Controller
     public function destroy(Restaurant $restaurant)
     {
         $restaurant->delete();
-        return to_route('admin.restaurant.index');
+        return to_route('admin.restaurants.index');
     }
 }

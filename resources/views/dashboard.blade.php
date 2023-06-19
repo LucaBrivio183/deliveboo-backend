@@ -9,7 +9,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">{{ __('User Dashboard') }}</div>
-                 <a href="{{ route('admin.restaurants.index') }}"> I tuoi ristoranti</a>
+                    <a href="{{ route('admin.restaurants.index') }}"> I tuoi ristoranti</a>
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
