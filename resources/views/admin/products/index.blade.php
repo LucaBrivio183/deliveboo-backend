@@ -2,79 +2,66 @@
 
 @section('content')
 <div class="container my-3">
-    <div class="d-flex justify-content-between align-items-center mx-3 my-4">
+    <div class="d-flex justify-content-between align-items-center my-4">
         <h2>Lista prodotti</h2>
         {{-- create product --}}
-        <a href="{{ route('admin.products.create') }}" class="btn btn-md btn-info">Crea nuovo prodotto</a>
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-md btn-secondary">Indietro</a>
     </div>
 
     {{-- message --}}
     @include('partials.message')
 
+    <a href="{{ route('admin.products.create') }}" class="btn btn-outline-primary fs-6">+</a>
     <div class="row">
-      {{-- accordion --}}
-      <div class="accordion accordion-flush" id="accordionExample">
-        @foreach ($categories as $category)
-          {{-- accordion item for each category --}}
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $category->id }}" aria-expanded="true" aria-controls="collapse{{ $category->id }}">
-                {{ $category->name }}
-              </button>
-            </h2>
-            <div id="collapse{{ $category->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              {{-- accordion  body--}}
-              <div class="accordion-body">
-                {{-- products table--}}
-                <table class="table table-hover align-middle">
-                  <tbody>
-                      @foreach ($category->products as $product)
-                          <tr onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer">
-                              <td>{{ $product->name }}</td>
-                              <td>{{ $product->description }}</td>
-                              <td>{{ $product->price }} €</td>
-                              <td>
-                                  {{-- stopPropagation in order to disable onclick event --}}
-                                  <div class="d-flex gap-2" onclick="event.stopPropagation()">
-                                      <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                      {{-- button trigger delete modal --}}
-                                      <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#product-{{ $product->id }}"> <i class="fa-solid fa-trash"></i></a>                                      
-                                  </div>
-                              </td>
-                          </tr>
+      {{-- products table--}}
+      <table class="table table-hover align-middle">
+        <tbody>
+          <thead>
+            <th scope="col">Nome Prodotto</th>
+            <th scope="col">Descrizione</th>
+            <th scope="col">Prezzo</th>
+          </thead>
+          @foreach ($products as $product)
+            <tr class="justify-content-between"  onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer">
+              <td>{{ $product->name }}</td>
+              <td>{{ $product->description }}</td>
+              <td>{{ $product->price }} €</td>
+              <td>
+                {{-- stopPropagation in order to disable onclick event --}}
+                <div class="d-flex justify-content-end gap-2" onclick="event.stopPropagation()">
+                  <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                    {{-- button trigger delete modal --}}
+                  <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#product-{{ $product->id }}"> <i class="fa-solid fa-trash text-black"></i></a>                                      
+                </div>
+              </td>
+            </tr>
                           
-                          {{-- delete modal --}}
-                          <div class="modal fade" id="product-{{ $product->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Warning</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                            <div class="modal-body">
-                            Vuoi cancellare il prodotto <strong>{{ $product->name }}</strong>?
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                            <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                              <button class="btn btn-danger my-1">Elimina</button>
-                            </form>
-                          </div>
-                          {{-- /delete modal --}}
-                      @endforeach
-                  </tbody>
-                </table>
-                {{-- /products table--}}
+            {{-- delete modal --}}
+            <div class="modal fade" id="product-{{ $product->id }}" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+              <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">ATTENZIONE!</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              {{-- /accordion  body--}}
+              <div class="modal-body">
+                Sei sicuro di voler eliminare il prodotto <strong>{{ $product->name }}</strong>?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                  <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger my-1">Elimina</button>
+                  </form>
             </div>
-          </div>
-          {{-- /accordion item for each category --}}
-        @endforeach
-      </div>
-      {{-- /accordion --}}
+            {{-- /delete modal --}}
+            @endforeach
+        </tbody>
+      </table>
+      {{-- /products table--}}
     </div>
+  {{-- /row --}}
 </div>
+{{-- /container --}}
 @endsection

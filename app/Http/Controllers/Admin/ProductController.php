@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function getCurrentRestaurantProducts()
     {
         // Find the current restaurant's products
-        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
+        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->orderBy('name', 'asc')->get();
 
         return $products;
     }
@@ -55,7 +55,7 @@ class ProductController extends Controller
         // Find all the products' categories
         foreach ($products as $product) {
             $category = $product->category_id;
-            if(!in_array($category, $productCategories)) {
+            if (!in_array($category, $productCategories)) {
                 array_push($productCategories, $category);
             }
         }
@@ -145,7 +145,10 @@ class ProductController extends Controller
     {
         $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        return view('admin.products.edit', compact('product'));
+        //get categories from current user
+        $categories = $this->getCurrentRestaurantCategories();
+
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -182,6 +185,7 @@ class ProductController extends Controller
         //         $product->image = null;
         //     }
         // }
+
 
         $product->update($data);
 
