@@ -8,7 +8,6 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Restaurant;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -132,7 +131,11 @@ class ProductController extends Controller
     {
         $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        return view('admin.products.show', compact('product'));
+        if($product) {
+            return view('admin.products.show', compact('product'));
+        } else {
+            return view('errors.403');
+        }
     }
 
     /**
@@ -145,7 +148,11 @@ class ProductController extends Controller
     {
         $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        return view('admin.products.edit', compact('product'));
+        if($product) {
+            return view('admin.products.edit', compact('product'));
+        } else {
+            return view('errors.403');
+        }
     }
 
     /**
