@@ -49,7 +49,8 @@
                         </li>
                         @auth
                             @php
-                                $userRestaurant = App\Http\Controllers\Admin\ProductController::getCurrentUserRestaurant();
+                            // Check if the user has a restaurant
+                            $userRestaurant = App\Http\Controllers\Admin\ProductController::getCurrentUserRestaurant();
                             @endphp
                             @if ($userRestaurant)
                             {{-- products --}}
