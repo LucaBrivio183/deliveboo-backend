@@ -9,7 +9,7 @@ class Typology extends Model
 {
     use HasFactory;
 
-    //restaurants relationship
+    // restaurants relationship (many-to-many)
     public function restaurants()
     {
         return $this->belongsToMany(Restaurant::class, 'restaurant_typology');

@@ -10,15 +10,20 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = ['slug', 'image'];
-    //restaurant relationship
+    // restaurant relationship (many-to-one)
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
     }
 
-    //category relationship
+    // category relationship (many-to-one)
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    // orders relationship (many-to-many)
+    public function orders() {
+        return $this->belongsToMany(Order::class);
     }
 }
