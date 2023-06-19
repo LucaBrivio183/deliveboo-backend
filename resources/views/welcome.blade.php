@@ -10,15 +10,17 @@
                 </g>
             </svg>
         </div>
-        <h1 class="text-center p-3 mt-3">Collabora con noi</h1>
-        <div class="d-flex justify-content-center align-items-center p-5">
+        <div>
             @guest
-            <a href="{{ route('login') }}" class="btn btn-primary btn-lg me-3" type="button">{{ __('Login') }}</a>
-            @if (Route::has('register'))
-                <a  href="{{ route('register') }}" class="btn btn-primary btn-lg" type="button">{{ __('Register') }}</a>
-            @endif
-            @else
-                <h1>Benvenut* {{ Auth::user()->name }}</h1>
+            <h1 class="text-center p-3 mt-3">Collabora con noi</h1>
+            <div class="d-flex justify-content-center align-items-center p-5">
+                <a href="{{ route('login') }}" class="btn btn-primary btn-lg me-3" type="button">{{ __('Login') }}</a>
+                @if (Route::has('register'))
+                 <a  href="{{ route('register') }}" class="btn btn-primary btn-lg" type="button">{{ __('Register') }}</a>    
+                @endif
+                @else
+                 <h1 class="text-center p-5">Benvenut* {{ Auth::user()->name }}</h1>
+            </div>
             @endguest
         </div>
         {{-- <a href="https://github.com/LucaBrivio183/deliveboo-backend" class="btn btn-primary btn-lg" type="button">Documentation</a> --}}
