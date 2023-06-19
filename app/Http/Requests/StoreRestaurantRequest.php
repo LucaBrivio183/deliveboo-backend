@@ -34,7 +34,7 @@ class StoreRestaurantRequest extends FormRequest
             'delivery_cost' => 'min:0|max:99.99',
             'min_purchase' => 'min:0|max:99.99',
             'image' => 'nullable|image|max:2048',
-            'typologies' => 'required|array|min:1',
+            'typologies' => 'required|array|min:1|max:3',
         ];
     }
 
@@ -52,7 +52,8 @@ class StoreRestaurantRequest extends FormRequest
             'vat_number.unique' => 'Questa partita iva è già esistente',
             'postal_code.numeric' => 'Il codice postale deve essere un numero',
             'postal_code.digits' => 'Il codice postale deve avere 5 caratteri',
-            'typologies.required' => 'Seleziona almeno una categoria',
+            'typologies.required' => 'Seleziona almeno una tipologia',
+            'typologies.max' => 'Seleziona un massimo di 3 tipologie',
             'image.image' => 'Il file selezionato deve essere un\'immagine',
             'image.max' => 'Il file selezionato può avere una grandezza massima di 2 mb',
         ];

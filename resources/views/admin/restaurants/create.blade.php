@@ -104,12 +104,14 @@
             {{-- Typologies --}}
             <div class="mb-3">
                 <div class="mb-3">Tipologie <span class="required-input">*</span></div>
-                @foreach ($typologies as $typology)
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="{{ $typology->id }}" value="{{ $typology->id }}"name="typologies[]" {{ in_array($typology->id, old('typologies', [])) ? 'checked' : '' }}>
-                        <label class="form-check-label" for="{{ $typology->id }}">{{ $typology->name }}</label>
-                    </div>
-                @endforeach
+                <div class="row border rounded-4 py-2 ps-3 pe-1 gx-0">
+                    @foreach ($typologies as $typology)
+                        <div class="col-6 col-sm-4 col-md-3">
+                            <input class="form-check-input" type="checkbox" id="{{ $typology->id }}" value="{{ $typology->id }}"name="typologies[]" {{ in_array($typology->id, old('typologies', [])) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="{{ $typology->id }}">{{ $typology->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
                 @error('typologies')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
