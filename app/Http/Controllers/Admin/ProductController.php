@@ -8,7 +8,6 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Restaurant;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -18,14 +17,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCurrentUserRestaurant()
+    public static function getCurrentUserRestaurant()
     {
         // Find the current user ID
         $currentUserId = auth()->user()->id;
         // Find the current user's restaurant ID
-        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        $userRestaurant = Restaurant::where('user_id', $currentUserId)->first();
 
-        return $userRestaurantId;
+        if ($userRestaurant) {
+            return $userRestaurant->id;
+        }
     }
 
     /**
@@ -36,7 +37,7 @@ class ProductController extends Controller
     public function getCurrentRestaurantProducts()
     {
         // Find the current restaurant's products
-        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->get();
+        $products = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->orderBy('name', 'asc')->get();
 
         return $products;
     }
@@ -55,7 +56,7 @@ class ProductController extends Controller
         // Find all the products' categories
         foreach ($products as $product) {
             $category = $product->category_id;
-            if(!in_array($category, $productCategories)) {
+            if (!in_array($category, $productCategories)) {
                 array_push($productCategories, $category);
             }
         }
@@ -73,11 +74,18 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // Find the current user ID
+        $currentUser = auth()->user();
+
         $products = $this->getCurrentRestaurantProducts();
 
         $categories = $this->getCurrentRestaurantCategories();
 
-        return view('admin.products.index', compact('products', 'categories'));
+        if ($currentUser->restaurant) {
+            return view('admin.products.index', compact('products', 'categories'));
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -119,7 +127,7 @@ class ProductController extends Controller
 
         $newProduct->save();
 
-        return redirect()->route('admin.products.index')->with('message', 'Prodotto creato con successo');
+        return redirect()->route('admin.products.index')->with('message', "Prodotto $newProduct->name creato con successo");
     }
 
     /**
@@ -132,7 +140,11 @@ class ProductController extends Controller
     {
         $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        return view('admin.products.show', compact('product'));
+        if ($product) {
+            return view('admin.products.show', compact('product'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -143,9 +155,17 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+
+        //get categories from current user
+        $categories = $this->getCurrentRestaurantCategories();
+
         $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        return view('admin.products.edit', compact('product'));
+        if ($product) {
+            return view('admin.products.edit', compact('product', 'categories'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -183,9 +203,10 @@ class ProductController extends Controller
         //     }
         // }
 
+
         $product->update($data);
 
-        return to_route('admin.products.index');
+        return to_route('admin.products.index')->with('message', "Prodotto  $product->name modificato con successo");
     }
 
     /**

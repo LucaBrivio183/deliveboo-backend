@@ -41,16 +41,27 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
+                        
                         @auth
-                        {{-- restaurant --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
-                        </li>
-                        {{-- products --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.products.index') }}">{{ __('Prodotti') }}</a>
-                        </li>
+
+        
+                            @php
+                            // Check if the user has a restaurant
+                            $userRestaurant = App\Http\Controllers\Admin\ProductController::getCurrentUserRestaurant();
+                            @endphp
+                            @if ($userRestaurant)
+                            {{-- restaurant --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
+                            </li>
+                            {{-- products --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.products.index') }}">{{ __('Prodotti') }}</a>
+                            </li>
+                            @endif
+                            
                         @endauth
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->

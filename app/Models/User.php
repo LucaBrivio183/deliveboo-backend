@@ -42,6 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // restaurant relationship (one-to-one)
     public function restaurant() {
         return $this->hasOne(Restaurant::class);
     }

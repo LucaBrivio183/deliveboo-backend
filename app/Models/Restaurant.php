@@ -10,21 +10,28 @@ class Restaurant extends Model
     use HasFactory;
 
     // Guarded data will not be auto-filled
-    protected $guarded = ['slug', 'image', 'user_id'];
+    protected $guarded = ['slug', 'image', 'user_id', 'delivery_cost', 'min_purchase'];
 
+    // user relationship (one-to-one)
     public function user() {
         return $this->belongsTo(User::class);
     }
 
-    //product relationship
+    // product relationship (one-to-many)
     public function products()
     {
         return $this->hasMany(Product::class);
     }
 
-    //typologies relationship
+    // typologies relationship (many-to-many)
     public function typologies()
     {
-        return $this->belongsToMany(Typology::class);
+        return $this->belongsToMany(Typology::class, 'restaurant_typology');
+    }
+
+    // orders relationship (one-to-many)
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
