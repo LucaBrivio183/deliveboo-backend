@@ -1,0 +1,7 @@
+@use "../partials/variables" as *;
+
+#dashboard-container {
+    h2 {
+        color: $ms_primary_text;
+    }
+}

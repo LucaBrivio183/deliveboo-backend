@@ -1,0 +1,23 @@
+@use "../partials/variables" as *;
+
+
+#nav {
+    background-color: $ms_primary_text;
+    border-bottom: 2px solid #68fcff;
+    color: $ms_primary_background_light;
+
+    #logo_cut {
+        height: 3.75rem;
+        width: 3.125rem;
+    }
+
+    #logo {
+        width: 2.1875rem;
+        height: 3.75rem;
+        visibility: hidden;
+    }
+
+    a {
+        color: $ms_primary_background_light;
+    }
+}

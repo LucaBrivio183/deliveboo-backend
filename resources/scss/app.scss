@@ -1,2 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
-@import './_partials/_form';
+
+// dashboard
+@import "dashboard/nav";
+@import "dashboard/main";
+
+// variables
+@import "partials/variables";
+// typography
+@import "partials/typography";
+// global
+@import "global.scss";
