@@ -19,16 +19,18 @@
                  <a  href="{{ route('register') }}" class="btn btn-primary btn-lg" type="button">{{ __('Register') }}</a>    
                 @endif
                 @else
-                 <h1 class="text-center p-5">Benvenut* {{ Auth::user()->name }}</h1>
+                <div class="text-center">
+                    <h1 class="p-5">Benvenut* {{ Auth::user()->name }}</h1>
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-lg text-center" type="button">{{ __('Dashboard') }}</a>
+                </div>
             </div>
             @endguest
         </div>
-        {{-- <a href="https://github.com/LucaBrivio183/deliveboo-backend" class="btn btn-primary btn-lg" type="button">Documentation</a> --}}
     </div>
 </div>
 <div class="content">
     <div class="container">
-        <p>Deliveroo è una società Italiana di consegna di cibo online fondata da Vittorio Corradi, Luca Brivio, Eugenia Rossi, Giorgia Galbulli Cavazzini e Vittoria Romano nel 2023 online. Opera nelle citta di Roma, e pereferie.</p>
+        <p>Deliveroo è una società Italiana di consegna a ddomicilio di cibo, fondata online da Vittorio Corradi, Luca Brivio, Eugenia Rossi, Giorgia Galbulli Cavazzini e Vittoria Romano nel 2023 online. Opera nella citta di Roma, e pereferie.</p>
     </div>
 </div>
 @endsection
