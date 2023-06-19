@@ -17,14 +17,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCurrentUserRestaurant()
+    public static function getCurrentUserRestaurant()
     {
         // Find the current user ID
         $currentUserId = auth()->user()->id;
         // Find the current user's restaurant ID
-        $userRestaurantId = Restaurant::where('user_id', $currentUserId)->first()->id;
+        $userRestaurant = Restaurant::where('user_id', $currentUserId)->first();
 
-        return $userRestaurantId;
+        if($userRestaurant) {
+            return $userRestaurant->id;
+        }
     }
 
     /**
@@ -76,7 +78,11 @@ class ProductController extends Controller
 
         $categories = $this->getCurrentRestaurantCategories();
 
-        return view('admin.products.index', compact('products', 'categories'));
+        if(count($products) > 0) {
+            return view('admin.products.index', compact('products', 'categories'));
+        } else {
+            return view('errors.404');
+        }
     }
 
     /**

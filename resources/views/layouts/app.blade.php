@@ -48,10 +48,15 @@
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
                         @auth
-                        {{-- products --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.products.index') }}">{{ __('Products') }}</a>
-                        </li>
+                            @php
+                                $userRestaurant = App\Http\Controllers\Admin\ProductController::getCurrentUserRestaurant();
+                            @endphp
+                            @if ($userRestaurant)
+                            {{-- products --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.products.index') }}">{{ __('Prodotti') }}</a>
+                            </li>
+                            @endif
                         @endauth
                     </ul>
 
