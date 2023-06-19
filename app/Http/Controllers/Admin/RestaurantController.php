@@ -35,8 +35,9 @@ class RestaurantController extends Controller
     public function create()
     {
         $typologies = Typology::all();
+        $currentUser = auth()->user();
         
-        return view ('admin.restaurants.create', compact('typologies'));
+        return view ('admin.restaurants.create', compact('typologies', 'currentUser'));
     }
 
     /**
@@ -95,9 +96,18 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        $typologies = Typology::all();
+            $currentUserId = auth()->user()->id;
+            
+            // Stop users from editing other users' restaurants 
+            if ($currentUserId === $restaurant->user_id) {                                     
+                
+                $typologies = Typology::all();
+        
+                return view('admin.restaurants.edit', compact('restaurant', 'typologies'));
+            } else {
 
-        return view('admin.restaurants.edit', compact('restaurant', 'typologies'));
+                abort(403);     //access denied
+            }
     }
 
     /**
