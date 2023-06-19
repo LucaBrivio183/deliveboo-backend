@@ -12,6 +12,6 @@ class Typology extends Model
     //restaurants relationship
     public function restaurants()
     {
-        return $this->belongsToMany(Restaurant::class);
+        return $this->belongsToMany(Restaurant::class, 'restaurant_typology');
     }
 }

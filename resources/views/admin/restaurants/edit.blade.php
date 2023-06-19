@@ -4,11 +4,12 @@
 
 {{-- Edit restaurant info --}}
 <div class="form-container">
-    <div class="my-4 d-flex justify-content-between align-items-center">
-        <h1>Modifica le informazioni per il tuo ristorante!</h1>
+    <div class="my-5 d-flex justify-content-between align-items-center">
+        <h1 class="fs-2 pe-4">Modifica informazioni del ristorante</h1>
         {{-- Back to dashboard button --}}
         <div>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-success">Torna alla dashboard</a>
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-success d-none d-md-block">Torna alla dashboard</a>
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-success d-block d-md-none">Dashboard</a>
         </div>
     </div>
     
@@ -19,10 +20,18 @@
 
         <div class="row">
             {{-- Name --}}
-            <div class="mb-3 col-12">
+            <div class="mb-3 col-12 col-lg-7">
                 <label for="name" class="form-label">Nome del ristorante <span class="required-input">*</span></label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $restaurant->name) }}" required />
                 @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            {{-- Vat Number --}}
+            <div class="mb-3 col-12 col-lg-5">
+                <label for="vat_number" class="form-label">Partita IVA <span class="required-input">*</span></label>
+                <input type="text" class="form-control @error('vat_number') is-invalid @enderror" id="vat_number" name="vat_number" value="{{ old('vat_number', $restaurant->vat_number) }}" required />
+                @error('vat_number')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -60,7 +69,7 @@
             </div>
             {{-- Delivery Cost --}}
             <div class="mb-3 col-6 col-md-3">
-                <label for="delivery_cost" class="form-label">Costo di consegna <span class="required-input">*</span></label>
+                <label for="delivery_cost" class="form-label">Costo di consegna</label>
                 <input type="number" step="0.01" min="0" max="99.99" class="form-control @error('delivery_cost') is-invalid @enderror" id="delivery_cost" name="delivery_cost" value="{{ old('delivery_cost', $restaurant->delivery_cost) }}">
                 @error('delivery_cost')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -68,51 +77,59 @@
             </div>
             {{-- Minimum Purchase --}}
             <div class="mb-3 col-6 col-md-3">
-                <label for="min_purchase" class="form-label">Minimo d'ordine <span class="required-input">*</span></label>
+                <label for="min_purchase" class="form-label">Minimo d'ordine</label>
                 <input type="number" step="0.01" min="0" max="99.99" class="form-control @error('min_purchase') is-invalid @enderror" id="min_purchase" name="min_purchase" value="{{ old('min_purchase', $restaurant->min_purchase) }}">
                 @error('min_purchase')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             {{-- Typologies --}}
-            @if ($errors->any())
-                    <div class="mb-3">
-                        <div class="mb-3">Tipologie</div>
-                        @foreach ($typologies as $typology)
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="{{ $typology->id }}" value="{{ $typology->id }}" name="typologies[]" {{ in_array($typology->id, old('typologies', [])) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="{{ $typology->id }}">{{ $typology->name }}</label>
-                            </div>
-                        @endforeach
-    
-                    </div>
-                @else
-                    <div class="mb-3">
-                        <div class="mb-3">Tipologie</div>
-                        @foreach ($typologies as $typology)
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="{{ $typology->id }}" value="{{ $typology->id }}" name="typologies[]" {{ $restaurant->typologies->contains($typology->id) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="{{ $typology->id }}">{{ $typology->name }}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
+            @if ($errors->any())                        {{-- If there are errors in the form, show update typologies --}}
+                <div class="mb-3">
+                    <div class="mb-3">Tipologie <span class="required-input">*</span></div>
+                    @foreach ($typologies as $typology)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="{{ $typology->id }}" value="{{ $typology->id }}" name="typologies[]" {{ in_array($typology->id, old('typologies', [])) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="{{ $typology->id }}">{{ $typology->name }}</label>
+                        </div>
+                    @endforeach
+                    @error('typologies')
+                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+            @else                                       {{-- if there are no errors in the form, show original typologies --}}
+                <div class="mb-3">
+                    <div class="mb-3">Tipologie <span class="required-input">*</span></div>
+                    @foreach ($typologies as $typology)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="{{ $typology->id }}" value="{{ $typology->id }}" name="typologies[]" {{ $restaurant->typologies->contains($typology->id) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="{{ $typology->id }}">{{ $typology->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                @error('typologies')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
+            @endif
             {{-- Image --}}
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="image" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
                 @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 {{-- Image preview --}}
-                <div class="preview pt-4 pb-3">
-                    <img id="file-image-preview" class="img-fluid" @if($restaurant->image) src="{{ asset('storage/' . $restaurant->image) }}" @endif>
+                <div class="preview">
+                    <img id="file-image-preview" class="img-fluid @if($restaurant->image)mt-4 mb-3 @endif" @if($restaurant->image) src="{{ asset('storage/' . $restaurant->image) }}" @endif>
                 </div>
             </div>
     
-            {{-- Submit Button --}}
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="d-flex justify-content-between align-items-center pe-4">
+            {{-- Submit Button --}}
+            <button type="submit" class="btn btn-primary">Salva</button>
+            <small>I campi contrassegnati da <span class="required-input">*</span> sono obbligatori</small>
+        </div>
     </form>
     {{-- /Edit restaurant info form --}}
 </div>

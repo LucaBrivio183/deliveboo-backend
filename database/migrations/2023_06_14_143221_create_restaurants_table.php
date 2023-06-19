@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('city', 20);
             $table->string('business_times')->nullable();
             $table->string('phone_number', 15)->unique();
-            $table->decimal('delivery_cost', 4, 2)->unsigned();
+            $table->decimal('delivery_cost', 4, 2)->unsigned()->default(0);
             $table->decimal('min_purchase', 4, 2)->unsigned()->default(0);
             $table->string('image')->nullable();
 
