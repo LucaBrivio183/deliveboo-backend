@@ -48,9 +48,13 @@
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
                         @auth
+                        {{-- restaurant --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
+                        </li>
                         {{-- products --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.products.index') }}">{{ __('Products') }}</a>
+                            <a class="nav-link" href="{{route('admin.products.index') }}">{{ __('Prodotti') }}</a>
                         </li>
                         @endauth
                     </ul>

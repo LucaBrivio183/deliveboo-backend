@@ -22,9 +22,11 @@ class RestaurantController extends Controller
      */
     public function index(Restaurant $restaurant)
     {
-        $restaurants = Restaurant::all();
+        $currentUserId = auth()->user()->id;
+        // Find the current user's restaurant ID
+        $restaurants = Restaurant::where('user_id', $currentUserId)->get();
+
         return view('admin.restaurants.index', compact('restaurants'));
-        
     }
 
     /**
