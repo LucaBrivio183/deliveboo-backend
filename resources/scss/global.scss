@@ -9,6 +9,8 @@ body {
     #dashboard-container {
         background-image: url('/logo-green.png');
         background-repeat: no-repeat;
-        background-position: 25% 75%;
+        background-size: contain;
+        background-position-x: right;
+        background-position-y: center;
     }
 }
