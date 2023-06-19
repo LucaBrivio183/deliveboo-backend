@@ -24,7 +24,7 @@ class ProductController extends Controller
         // Find the current user's restaurant ID
         $userRestaurant = Restaurant::where('user_id', $currentUserId)->first();
 
-        if($userRestaurant) {
+        if ($userRestaurant) {
             return $userRestaurant->id;
         }
     }
@@ -74,14 +74,17 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // Find the current user ID
+        $currentUser = auth()->user();
+
         $products = $this->getCurrentRestaurantProducts();
 
         $categories = $this->getCurrentRestaurantCategories();
 
-        if(count($products) > 0) {
+        if ($currentUser->restaurant) {
             return view('admin.products.index', compact('products', 'categories'));
         } else {
-            return view('errors.404');
+            abort(404);
         }
     }
 
@@ -124,7 +127,7 @@ class ProductController extends Controller
 
         $newProduct->save();
 
-        return redirect()->route('admin.products.index')->with('message', 'Prodotto creato con successo');
+        return redirect()->route('admin.products.index')->with('message', "Prodotto $newProduct->name creato con successo");
     }
 
     /**
@@ -137,10 +140,10 @@ class ProductController extends Controller
     {
         $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        if($product) {
+        if ($product) {
             return view('admin.products.show', compact('product'));
         } else {
-            return view('errors.403');
+            abort(403);
         }
     }
 
@@ -152,16 +155,16 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-      
+
         //get categories from current user
         $categories = $this->getCurrentRestaurantCategories();
-      
+
         $product = Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $product->name)->first();
 
-        if($product) {
+        if ($product) {
             return view('admin.products.edit', compact('product', 'categories'));
         } else {
-            return view('errors.403');
+            abort(403);
         }
     }
 
@@ -203,7 +206,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return to_route('admin.products.index');
+        return to_route('admin.products.index')->with('message', "Prodotto  $product->name modificato con successo");
     }
 
     /**

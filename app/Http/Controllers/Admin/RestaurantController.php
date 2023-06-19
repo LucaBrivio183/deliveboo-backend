@@ -24,7 +24,6 @@ class RestaurantController extends Controller
     {
         $restaurants = Restaurant::all();
         return view('admin.restaurants.index', compact('restaurants'));
-        
     }
 
     /**
@@ -36,8 +35,8 @@ class RestaurantController extends Controller
     {
         $typologies = Typology::orderBy('name')->get();
         $currentUser = auth()->user();
-        
-        return view ('admin.restaurants.create', compact('typologies', 'currentUser'));
+
+        return view('admin.restaurants.create', compact('typologies', 'currentUser'));
     }
 
     /**
@@ -47,7 +46,7 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRestaurantRequest $request)
-    {   
+    {
         $currentUserId = auth()->user()->id;
         // Get validated data from form
         $request->validated();
@@ -59,17 +58,17 @@ class RestaurantController extends Controller
         $newRestaurant->slug = Str::slug($data['name']);
 
         // If delivery cost or minimum purchase are specified in the form, save the specified input. Otherwise, default to 0.
-        if(isset($data['delivery_cost'])) {
+        if (isset($data['delivery_cost'])) {
             $newRestaurant->delivery_cost = $data['delivery_cost'];
         }
-        if(isset($data['min_purchase'])) {
+        if (isset($data['min_purchase'])) {
             $newRestaurant->min_purchase = $data['min_purchase'];
         }
 
         // Save image in storage
-        if(isset($data['image'])) {
+        if (isset($data['image'])) {
             $path_img = Storage::put('uploads', $data['image']);
-            
+
             $newRestaurant->image = $path_img;
         }
 
@@ -78,11 +77,11 @@ class RestaurantController extends Controller
         $newRestaurant->fill($data);
         $newRestaurant->save();
 
-        if(isset($data['typologies'])) {
+        if (isset($data['typologies'])) {
             $newRestaurant->typologies()->sync($data['typologies']);
         }
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard')->with('message', "Ristorante $newRestaurant->name creato con successo");
     }
 
     /**
@@ -93,8 +92,16 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        return view('admin.restaurants.show', compact('restaurant'));
+        $currentUserId = auth()->user()->id;
+        // Stop users from viewing other users' restaurants 
+        if ($currentUserId === $restaurant->user_id) {
+
+            return view('admin.restaurants.show', compact('restaurant'));
+        } else {
+            abort(403);     //access denied
+        };
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -104,17 +111,17 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-            $currentUserId = auth()->user()->id;
-            
-            // Stop users from editing other users' restaurants 
-            if ($currentUserId === $restaurant->user_id) {                                     
-                
-                $typologies = Typology::orderBy('name')->get();
-        
-                return view('admin.restaurants.edit', compact('restaurant', 'typologies'));
-            } else {
-                abort(403);     //access denied
-            }
+        $currentUserId = auth()->user()->id;
+
+        // Stop users from editing other users' restaurants 
+        if ($currentUserId === $restaurant->user_id) {
+
+            $typologies = Typology::orderBy('name')->get();
+
+            return view('admin.restaurants.edit', compact('restaurant', 'typologies'));
+        } else {
+            abort(403);     //access denied
+        }
     }
 
     /**
@@ -125,30 +132,28 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
-    {   
+    {
         // Get validated data from form
         $request->validated();
         $data = $request->all();
 
         // Edited restaurant slug
         $restaurant->slug = Str::slug($data['name']);
-        
+
         // If delivery cost or minimum purchase are specified in the form, save the specified input. Otherwise, default to 0.
-        if(isset($data['delivery_cost'])) {
+        if (isset($data['delivery_cost'])) {
             $restaurant->delivery_cost = $data['delivery_cost'];
         } else {
             $restaurant->delivery_cost = 0;
         }
-        if(isset($data['min_purchase'])) {
+        if (isset($data['min_purchase'])) {
             $restaurant->min_purchase = $data['min_purchase'];
         } else {
             $restaurant->min_purchase = 0;
         }
 
-        if(isset($data['typologies'])) {
+        if (isset($data['typologies'])) {
             $restaurant->typologies()->sync($data['typologies']);
-        } else {
-            $restaurant->typologies()->detach();
         }
 
         // Edited image
@@ -164,7 +169,7 @@ class RestaurantController extends Controller
 
         $restaurant->update($data);
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard')->with('message', "Ristorante $restaurant->name modificato con successo");
     }
 
     /**
@@ -175,7 +180,9 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
+        $old_name = $restaurant->name;
+
         $restaurant->delete();
-        return to_route('admin.restaurants.index');
+        return to_route('admin.restaurants.index')->with('message', "Ristorante $old_name eliminato con successo");
     }
 }

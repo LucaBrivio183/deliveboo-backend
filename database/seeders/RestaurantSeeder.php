@@ -20,15 +20,15 @@ class RestaurantSeeder extends Seeder
     public function run()
     {
         $restaurants = config('restaurants');
-        
+
         Schema::disableForeignKeyConstraints();
         Restaurant::truncate();
         Schema::enableForeignKeyConstraints();
 
-        foreach ($restaurants as $restaurant){
+        foreach ($restaurants as $restaurant) {
             $newRestaurant = new Restaurant();
             // Seed one restaurant for each user
-            
+
             $newRestaurant->user_id = $restaurant['user_id'];
 
             $newRestaurant->name = $restaurant['name'];
@@ -44,5 +44,5 @@ class RestaurantSeeder extends Seeder
             $newRestaurant->image = $restaurant['image'];
             $newRestaurant->save();
         }
-   }
+    }
 }

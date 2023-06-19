@@ -13,16 +13,25 @@
     @endif
     
     {{-- description --}}
-    <p>{{ $product->description }}</p>
+    <p><strong>Descrizione:</strong> {{ $product->description }}</p>
 
     {{-- ingredients --}}
-    <p>Ingredienti: {{ $product->ingredients }}</p>
+    <p><strong>Ingredienti:</strong> {{ $product->ingredients }}</p>
+
+    {{-- categories --}}
+    <p><strong>Categoria:</strong>  {{ $product->category->name }}</p>
 
     {{-- price --}}
-    <h6>€ {{ $product->price }}</h6>
+    <h6><strong>Prezzo:</strong> {{ $product->price }} €</h6>
+
+    {{-- discount --}}
+    @if ($product->discount != 0 )
+        <h6><strong>Sconto:</strong> {{ $product->discount }} €</h6>
+    @endif
+    
 
     {{-- buttons --}}
-    <div class="d-flex gap-2">
+    <div class="my-4 d-flex gap-2">
         <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning">Modifica</a>
             {{-- button trigger delete modal --}}
         <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#product-{{ $product->id }}">Elimina</a>                                      
