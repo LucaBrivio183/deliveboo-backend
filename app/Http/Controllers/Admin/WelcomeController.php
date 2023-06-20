@@ -12,7 +12,6 @@ class WelcomeController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        return view('welcome', compact('user_id'))
-        ;
+        return view('welcome', compact('user_id'));
     }
 }
