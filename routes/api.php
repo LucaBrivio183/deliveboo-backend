@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\Api\RestaurantController as ApiRestaurantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,6 @@ use App\Http\Controllers\Admin\RestaurantController;
 // });
 
 Route::get('restaurants/', [RestaurantController::class, 'index']);
-Route::get('restaurant/{id}', [RestaurantController::class, 'show']);
+Route::get('restaurant/{slug}', [ApiRestaurantController::class, 'show']);
 
 require __DIR__ . '/auth.php';
