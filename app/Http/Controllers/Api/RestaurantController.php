@@ -7,8 +7,8 @@ use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
-{   
 
+{
     // Get all restaurants (paginated by 5) with their typologies
     public function index() {
 
@@ -37,5 +37,20 @@ class RestaurantController extends Controller
             ], 500);
         }
     }
-}
+  
+    public function show(string $slug) {
+        $restaurant = Restaurant::where('slug', $slug)->with('products')->first();
 
+        if ($restaurant) {
+            return response()->json([
+                'success' => true,
+                'results' => $restaurant
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'results' => null
+            ], 404);
+        }
+    }
+}

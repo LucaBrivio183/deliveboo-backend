@@ -26,4 +26,7 @@ Route::get('homepage', [RestaurantController::class, 'index']);
 // Homepage typologies Api (only typologies associated with at least a restaurant)
 Route::get('homepage/typologies', [TypologyController::class, 'index']);
 
+// Single restaurant API with products
+Route::get('restaurant/{slug}', [ApiRestaurantController::class, 'show']);
+
 require __DIR__ . '/auth.php';
