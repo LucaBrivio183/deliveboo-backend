@@ -5,7 +5,7 @@
     <div class="bg-light rounded py-4 px-5 my-4 d-flex flex-column align-items-center">
         <h1 class="p-2">Il tuo ristorante</h1>
         {{-- create link --}}
-        <a href="{{ route('admin.restaurants.create') }}" class="btn btn-success btn-sm p-2 my-2">Crea</a>
+        <a href="{{ route('admin.restaurants.create') }}" class="btn btn-success btn-sm p-2 mt-1 mb-3">Crea</a>
 
         <div>
             @foreach ($restaurants as $restaurant)
