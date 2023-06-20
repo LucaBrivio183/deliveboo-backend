@@ -7,6 +7,8 @@
         <h2 class="fs-4 mt-4 mb-2 mx-3">
             {{ __('Dashboard utente') }}
         </h2>
+        {{-- Show columns if user has a restaurant --}}
+        @if($restaurant)
         <div class="row">
             {{-- restaurant column --}}
             <div class="col-3">
@@ -16,7 +18,7 @@
                     </h3>
                     <div class="card-body d-flex flex-wrap justify-content-center align-items-center gap-3">
                         {{-- element to repeat --}}
-                        @foreach ($restaurants as $restaurant)
+                        {{-- @foreach ($restaurants as $restaurant) --}}
                         <a href="{{ route('admin.restaurants.show', $restaurant->id)}}">
                             {{-- card --}}
                             <div class="card">
@@ -35,12 +37,13 @@
                             </div>
                             {{-- /card --}}
                         </a>
-                        @endforeach     
+                        {{-- @endforeach --}}
                         {{-- /element to repeat --}}  
                     </div>
                 </div> 
             </div>
             {{-- /restaurant column --}}
+            
             {{-- products column --}}
             <div class="col-9">
                 <div class="card my-3" id="products-container">
@@ -77,6 +80,8 @@
             </div>
             {{-- /products column --}}
         </div>
+        @endif
+        {{-- /Show columns if user has a restaurant --}}
     </div>
 </div>
 {{-- /dashboard container --}}

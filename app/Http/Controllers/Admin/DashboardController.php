@@ -15,15 +15,16 @@ class DashboardController extends Controller
         // Find the current user ID
         $user_id = auth()->user()->id;
 
-        // Find the current user's restaurants
-        $restaurants = Restaurant::where('user_id', $user_id)->get();
+        // Find the current user's restaurant
+        $restaurant = Restaurant::where('user_id', $user_id)->first();
+        
+        // If user has a restaurant, get restaurant products
+        if($restaurant) {
+            $products = Product::where('restaurant_id', $restaurant->id)->get();
+        } else {
+            $products = null;
+        }
 
-        // Find the current user's restaurant ID
-        $userRestaurantId = Restaurant::where('user_id', $user_id)->first()->id;
-
-        // Find the current user's products
-        $products = Product::where('restaurant_id', $userRestaurantId)->get();
-
-        return view('dashboard', compact('user_id', 'products', 'restaurants'));
+        return view('dashboard', compact('products', 'restaurant'));
     }
 }
