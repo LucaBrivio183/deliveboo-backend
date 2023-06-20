@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\Api\RestaurantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\RestaurantController;
 //     return $request->user();
 // });
 
-Route::get('restaurants/', [RestaurantController::class, 'index']);
-Route::get('restaurant/{id}', [RestaurantController::class, 'show']);
+// Homepage Api (restaurants with typologies)
+Route::get('homepage', [RestaurantController::class, 'index']);
 
 require __DIR__ . '/auth.php';
