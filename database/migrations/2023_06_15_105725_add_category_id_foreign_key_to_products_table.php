@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id')
                 ->after('id')
                 ->constrained()
-                ->nullOnDelete();
+                ->cascadeOnDelete();
         });
     }
 
