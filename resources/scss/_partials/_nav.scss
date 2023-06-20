@@ -1,0 +1,16 @@
+@use "../utilities/variables" as *;
+
+
+#nav {
+    background-color: $ms_primary_text;
+    border-bottom: 2px solid #68fcff;
+
+    h3 {
+        color: $ms_primary_background;
+    }
+
+    #logo_cut {
+        height: 3.125rem;
+        width: 2.6875rem;
+    }
+}

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container bg-light rounded py-4 px-5 my-4">
         <div class="d-flex justify-content-between align-items-center my-4">
             <h2>Modifica {{ $product->name }}</h2>
             {{-- create product --}}

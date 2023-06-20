@@ -22,12 +22,16 @@
 
 <body>
     <div id="app">
+        {{-- nav --}}
         <nav id="nav" class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+                    {{-- logo --}}
                     <div class="logo_deliveboo">
                         <img src="{{url('/logo-pink-cut.png')}}" alt="logo" id="logo_cut">
-                        <img src="{{url('/logo-pink.png')}}" alt="logo" id="logo">
+                    </div>
+                    <div class="ms-3 me-3">
+                        <h3>DeliveBoo</h3>
                     </div>
                 </a>
 
@@ -38,47 +42,46 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-light" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
                         
                         @auth
-
-        
                             @php
                             // Check if the user has a restaurant
                             $userRestaurant = App\Http\Controllers\Admin\ProductController::getCurrentUserRestaurant();
                             @endphp
                             @if ($userRestaurant)
                             {{-- restaurant --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
+                            <li class="nav-item mx-1">
+                                <a class="nav-link text-light" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
                             </li>
                             {{-- products --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin.products.index') }}">{{ __('Prodotti') }}</a>
+                            <li class="nav-item mx-1">
+                                <a class="nav-link text-light" href="{{route('admin.products.index') }}">{{ __('I tuoi prodotti') }}</a>
                             </li>
-                            @endif
-                            
+                            @endif 
                         @endauth
-                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
+                        {{-- login --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link text-light" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         @if (Route::has('register'))
+                        {{-- register --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link text-light" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                         @endif
                         @else
+                        {{-- dropdown menu --}}
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
 
@@ -95,13 +98,15 @@
                                 </form>
                             </div>
                         </li>
+                        {{-- /dropdown menu --}}
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
+        {{-- /nav --}}
 
-        <main class="">
+        <main>
             @yield('content')
         </main>
     </div>

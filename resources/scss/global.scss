@@ -1,16 +1,41 @@
 // variables
-@import "partials/variables";
+@import "utilities/variables";
+
+* {
+    background-repeat: no-repeat;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
 body {
-    background-color: $ms_primary_background_light;
+    background-color: $ms_primary_background;
     background-image: url('/background-green.png');
-    background-repeat: no-repeat;
-    
-    #dashboard-container {
-        //background-image: url('/logo-green.png');
-        background-repeat: no-repeat;
+    background-size: cover;
+
+    #welcome-container {
+        background-image: url('/logo-green.png');
         background-size: contain;
-        background-position-x: right;
-        background-position-y: center;
+        background-position: right;
+
+        #content {
+            background-color: $ms_primary_text;
+        }
+
+        #description {
+            p {
+                color: $ms_primary_text;
+                padding: 2.5rem 6.25rem 0;
+            }
+        }
     }
+
+    #products-show-container {
+        img {
+            max-width: 31.25rem;
+        }
+    }
+
 }

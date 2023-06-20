@@ -3,7 +3,7 @@
 @section('content')
 
 {{-- Edit restaurant info --}}
-<div class="form-container">
+<div class="form-container bg-light rounded py-4 px-5 my-4">
     <div class="my-5 d-flex justify-content-between align-items-center">
         <h1 class="fs-2 pe-4">Modifica informazioni del ristorante</h1>
         {{-- Back to dashboard button --}}
