@@ -2,10 +2,10 @@
 
 @section('content')
 <div id="products-show-container" class="d-flex justify-content-center">
-    <div class="col-8 my-4 bg-light rounded py-4 px-5">
+    <div class="col-7 my-4 bg-light rounded py-4 px-5">
         <div class="d-flex justify-content-between align-items-center my-4">
             <h2>{{ $product->name }}</h2>
-            {{-- create product --}}
+            {{-- back to dashboard --}}
             <a href="{{ route('admin.products.index') }}" class="btn btn-md btn-secondary">Indietro</a>
         </div>
         {{-- image --}}
