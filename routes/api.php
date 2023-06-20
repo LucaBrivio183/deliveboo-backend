@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RestaurantController;
+use App\Http\Controllers\Api\TypologyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,10 @@ use App\Http\Controllers\Api\RestaurantController;
 //     return $request->user();
 // });
 
-// Homepage Api (restaurants with typologies)
+// Homepage restaurants Api (restaurants with typologies)
 Route::get('homepage', [RestaurantController::class, 'index']);
+
+// Homepage typologies Api (only typologies associated with at least a restaurant)
+Route::get('homepage/typologies', [TypologyController::class, 'index']);
 
 require __DIR__ . '/auth.php';
