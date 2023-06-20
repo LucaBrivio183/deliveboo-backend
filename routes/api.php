@@ -27,6 +27,6 @@ Route::get('homepage', [RestaurantController::class, 'index']);
 Route::get('homepage/typologies', [TypologyController::class, 'index']);
 
 // Single restaurant API with products
-Route::get('restaurant/{slug}', [ApiRestaurantController::class, 'show']);
+Route::get('restaurant/{slug}', [RestaurantController::class, 'show']);
 
 require __DIR__ . '/auth.php';
