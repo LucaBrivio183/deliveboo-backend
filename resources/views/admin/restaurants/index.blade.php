@@ -13,7 +13,6 @@
                 <img :src={{$restaurant->image}} class="card-img-top" :alt={{$restaurant->name}}>
                 <div class="card-body">
                 <h5 class="card-title">{{$restaurant->name}}</h5>
-                <div>{{$restaurant->slug}}</div>
                 <div>Partita IVA: {{$restaurant->vat_number}}</div>
                 <span>Indirizzo: {{$restaurant->address}},</span>
                 <span>{{$restaurant->city}}</span>
