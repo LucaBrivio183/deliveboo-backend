@@ -11,7 +11,7 @@ a {
 }
 
 body {
-    background-color: $ms_primary_background;
+    background-color: $ms_primary_color;
     background-image: url('/background-green.png');
     background-size: cover;
 
@@ -21,12 +21,12 @@ body {
         background-position: right;
 
         #content {
-            background-color: $ms_primary_text;
+            background-color: $ms_secondary_color;
         }
 
         #description {
             p {
-                color: $ms_primary_text;
+                color: $ms_secondary_color;
                 padding: 2.5rem 6.25rem 0;
             }
         }

@@ -1,10 +1,10 @@
 @use "../utilities/variables" as *;
 
 #dashboard-container {
-    color: $ms_primary_text;
+    color: $ms_secondary_color;
     
     h2, h3 {
-        color: $ms_primary_text;
+        color: $ms_secondary_color;
     }
 
     #products-container {
