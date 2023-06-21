@@ -43,7 +43,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" minlength="8" maxlength="30" onchange="checkPasswordConfirmation()">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" minlength="8" maxlength="30" onchange="checkPasswordConfirmation()">
                             </div>
                         </div>
 
@@ -74,4 +74,15 @@
         </div>
     </div>
 </div>
+
+<script>
+function checkPasswordConfirmation() {
+    const password = document.getElementById('password');
+    const passwordConfirmation = document.getElementById('password-confirm');
+    if(password.value === passwordConfirmation.value) {
+        passwordConfirmation.setCustomValidity('');
+    } else {
+        passwordConfirmation.setCustomValidity('La password non combacia');
+    }
+}</script>
 @endsection
