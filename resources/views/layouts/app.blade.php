@@ -42,25 +42,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item mx-1">
-                            <a class="nav-link text-light" href="{{url('/') }}">{{ __('Home') }}</a>
-                        </li>
-                        
                         @auth
-                            @php
-                            // Check if the user has a restaurant
-                            $userRestaurant = App\Http\Controllers\Admin\ProductController::getCurrentUserRestaurant();
-                            @endphp
-                            @if ($userRestaurant)
-                            {{-- restaurant --}}
-                            <li class="nav-item mx-1">
-                                <a class="nav-link text-light" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
-                            </li>
-                            {{-- products --}}
-                            <li class="nav-item mx-1">
-                                <a class="nav-link text-light" href="{{route('admin.products.index') }}">{{ __('I tuoi prodotti') }}</a>
-                            </li>
-                            @endif 
+                        @if (auth()->user()->restaurant)
+                        {{-- dashboard --}}
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-light" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                        </li>
+                        {{-- restaurant --}}
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-light" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
+                        </li>
+                        {{-- products --}}
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-light" href="{{route('admin.products.index') }}">{{ __('I tuoi prodotti') }}</a>
+                        </li>
+                        @endif 
                         @endauth
                     </ul>
 
@@ -86,8 +82,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                {{-- @if (auth()->user()->restaurant)
                                 <a class="dropdown-item" href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a>
-                                <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a>
+                                @endif --}}
+                                {{-- <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a> --}}
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

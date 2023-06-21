@@ -15,8 +15,14 @@
                     @endif
                     @else
                     <div class="text-center text-light">
-                        <h1 class="p-5">Benvenut* {{ Auth::user()->name }}</h1>
+                        <h1 class="p-5">È un piacere averti qui, <br> {{ Auth::user()->name }}!</h1>
+
+                        @if (auth()->user()->restaurant)
                         <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-lg text-center" type="button">{{ __('Dashboard') }}</a>
+
+                        @else
+                        <a href="{{ route('admin.restaurants.create') }}" class="btn btn-primary btn-lg text-center" type="button">{{ __('Registra il tuo ristorante') }}</a>
+                        @endif
                     </div>
                 </div>
                 @endguest
