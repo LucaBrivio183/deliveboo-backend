@@ -186,6 +186,6 @@ class RestaurantController extends Controller
         $old_name = $restaurant->name;
 
         $restaurant->delete();
-        return to_route('admin.restaurants.index')->with('message', "Ristorante $old_name eliminato con successo");
+        return redirect()->route('welcome')->with('message', "Ristorante $old_name eliminato con successo");
     }
 }
