@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             RestaurantSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
-            TypologySeeder::class
+            TypologySeeder::class,
+            RestaurantTypologySeeder::class,
         ]);
     }
 }

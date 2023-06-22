@@ -27,7 +27,7 @@ class Restaurant extends Model
     // typologies relationship (many-to-many)
     public function typologies()
     {
-        return $this->belongsToMany(Typology::class, 'restaurant_typology');
+        return $this->belongsToMany(Typology::class, 'restaurant_typology')->using(RestaurantTypology::class);
     }
 
     // orders relationship (one-to-many)

@@ -57,7 +57,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" minlength="8" maxlength="30" onchange="checkPasswordConfirmation()">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" minlength="8" maxlength="30" onchange="checkPasswordConfirmation()" >
                             </div>
                         </div>
 
@@ -77,9 +77,11 @@
 
 <script>
 
+    
+    
     // Check if the password in confirm password is correct client-side
     function checkPasswordConfirmation() {
-
+        
         // Save in variables the two password inputs
         const password = document.getElementById('password');
         const passwordConfirmation = document.getElementById('password-confirm');
