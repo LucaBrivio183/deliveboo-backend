@@ -20,7 +20,7 @@
         <p><strong>Ingredienti:</strong> {{ $product->ingredients }}</p>
     
         {{-- categories --}}
-        <p><strong>Categoria:</strong>  {{ $product->category->name }}</p>
+        {{-- <p><strong>Categoria:</strong>  {{ $product->category->name }}</p> --}}
     
         {{-- price --}}
         <h6><strong>Prezzo:</strong> {{ $product->price }} €</h6>

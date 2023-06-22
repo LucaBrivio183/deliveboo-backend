@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //category id
-            $table->foreignId('category_id')
-                ->after('id')
-                ->constrained()
-                ->cascadeOnDelete();
-        });
+        // Schema::table('products', function (Blueprint $table) {
+        //     //category id
+        //     $table->foreignId('category_id')
+        //         ->after('id')
+        //         ->constrained()
+        //         ->cascadeOnDelete();
+        // });
     }
 
     /**
@@ -29,9 +29,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['category_id']);
-            $table->dropColumn('category_id');
-        });
+        // Schema::table('products', function (Blueprint $table) {
+        //     $table->dropForeign(['category_id']);
+        //     $table->dropColumn('category_id');
+        // });
     }
 };
