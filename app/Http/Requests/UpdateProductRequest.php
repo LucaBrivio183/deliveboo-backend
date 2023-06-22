@@ -54,7 +54,7 @@ class UpdateProductRequest extends FormRequest
             'description' => 'nullable|string',
             'ingredients' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
-            'price' => 'required|numeric|min:1|lte:20',
+            'price' => 'required|numeric|min:1|lte:99',
             'discount' => 'required|numeric|min:0|lte:0.99',
             'is_visible' => 'boolean',
             'category_id' => [
