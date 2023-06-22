@@ -43,7 +43,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" minlength="8" maxlength="30" onchange="checkPasswordConfirmation()">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" minlength="8" maxlength="30">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -76,13 +76,22 @@
 </div>
 
 <script>
-function checkPasswordConfirmation() {
-    const password = document.getElementById('password');
-    const passwordConfirmation = document.getElementById('password-confirm');
-    if(password.value === passwordConfirmation.value) {
-        passwordConfirmation.setCustomValidity('');
-    } else {
-        passwordConfirmation.setCustomValidity('La password non combacia');
+
+    // Check if the password in confirm password is correct client-side
+    function checkPasswordConfirmation() {
+
+        // Save in variables the two password inputs
+        const password = document.getElementById('password');
+        const passwordConfirmation = document.getElementById('password-confirm');
+
+        // If the two values are equal, do nothing
+        if(password.value === passwordConfirmation.value) {
+            passwordConfirmation.setCustomValidity('');
+        } else {    //alert the registering user
+            passwordConfirmation.setCustomValidity('La password non combacia');
+        }
     }
-}</script>
+
+</script>
+
 @endsection
