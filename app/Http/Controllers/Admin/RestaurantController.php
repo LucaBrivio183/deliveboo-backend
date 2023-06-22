@@ -26,7 +26,7 @@ class RestaurantController extends Controller
         // Find the current user's restaurant ID
         $restaurants = Restaurant::where('user_id', $currentUserId)->get();
 
-        if(auth()->user()->restuarant) {
+        if(auth()->user()->restaurant) {
 
             return view('admin.restaurants.index', compact('restaurants'));
         } else {
