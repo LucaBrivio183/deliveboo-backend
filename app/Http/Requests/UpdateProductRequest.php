@@ -57,11 +57,11 @@ class UpdateProductRequest extends FormRequest
             'price' => 'required|numeric|min:1|lte:99',
             'discount' => 'required|numeric|min:0|lte:0.99',
             'is_visible' => 'boolean',
-            'category_id' => [
-                'required',
-                // The category_id must be part of the current restaurant's categories
-                Rule::in($categories_id)
-            ]
+            // 'category_id' => [
+            //     'required',
+            //     // The category_id must be part of the current restaurant's categories
+            //     Rule::in($categories_id)
+            // ]
         ];
     }
 }

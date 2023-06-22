@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
 
             $newProduct = new Product();
 
-            $newProduct->category_id = $product['category_id'];
+            // $newProduct->category_id = $product['category_id'];
             $newProduct->restaurant_id = $product['restaurant_id'];
             $newProduct->name = $product['name'];
             $newProduct->slug = Str::slug($newProduct->name, '-');
