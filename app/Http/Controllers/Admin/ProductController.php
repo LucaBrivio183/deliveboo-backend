@@ -143,7 +143,7 @@ class ProductController extends Controller
         if ($product) {
             return view('admin.products.show', compact('product'));
         } else {
-            abort(403);
+            abort(404);
         }
     }
 
@@ -164,7 +164,7 @@ class ProductController extends Controller
         if ($product) {
             return view('admin.products.edit', compact('product', 'categories'));
         } else {
-            abort(403);
+            abort(404);
         }
     }
 
