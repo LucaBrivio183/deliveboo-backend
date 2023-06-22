@@ -106,7 +106,7 @@ class RestaurantController extends Controller
 
             return view('admin.restaurants.show', compact('restaurant'));
         } else {
-            abort(403);     //access denied
+            abort(404);     //access denied
         };
     }
 
@@ -128,7 +128,7 @@ class RestaurantController extends Controller
 
             return view('admin.restaurants.edit', compact('restaurant', 'typologies'));
         } else {
-            abort(403);     //access denied
+            abort(404);     //access denied
         }
     }
 
