@@ -17,19 +17,21 @@
       <table class="table table-hover align-middle">
         <tbody>
           <thead>
-            <th scope="col">Nome Prodotto</th>
-            <th scope="col">Descrizione</th>
-            <th scope="col">Prezzo</th>
+            <th scope="col" class="col-3">Prodotto</th>
+            <th scope="col" class="">Prezzo</th>
+            <th scope="col" class="col-1">Azioni</th>
           </thead>
           @foreach ($products as $product)
-            <tr class="justify-content-between"  onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer">
-              <td>{{ $product->name }}</td>
-              <td>{{ $product->description }}</td>
+            <tr onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer">
+              <td>
+                <span class="me-2"><i class="fa-solid {{ ($product->is_visible) ? 'fa-eye text-success' : 'fa-eye-slash text-danger' }}"></i></span>
+                {{ $product->name }}
+              </td>
               <td>{{ $product->price }} €</td>
               <td>
                 {{-- stopPropagation in order to disable onclick event --}}
-                <div class="d-flex justify-content-end gap-2" onclick="event.stopPropagation()">
-                  <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                <div onclick="event.stopPropagation()">
+                  <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning btn-sm me-1"><i class="fa-solid fa-pen-to-square"></i></a>
                     {{-- button trigger delete modal --}}
                   <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#product-{{ $product->id }}"> <i class="fa-solid fa-trash text-black"></i></a>                                      
                 </div>

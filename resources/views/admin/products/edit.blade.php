@@ -51,7 +51,7 @@
             {{-- price --}}
             <div class="mb-3">
                 <label for="price" class="form-label">Prezzo</label>
-                <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', $product->price) }}" min="1" max="20" required>
+                <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', $product->price) }}" min="1" max="99" required>
             </div>
             @error('price')
                 <div class="alert alert-danger">{{ $message }} </div>
