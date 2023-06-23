@@ -43,6 +43,31 @@ class UserSeeder extends Seeder
                 'email' => 'lu@prova.it',
                 'password' => Hash::make('password')
             ],
+            [
+                'name' => 'User Uno',
+                'email' => 'uno@prova.it',
+                'password' => Hash::make('password')
+            ],
+            [
+                'name' => 'User Due',
+                'email' => 'due@prova.it',
+                'password' => Hash::make('password')
+            ],
+            [
+                'name' => 'User Tre',
+                'email' => 'tre@prova.it',
+                'password' => Hash::make('password')
+            ],
+            [
+                'name' => 'User Quattro',
+                'email' => 'quattro@prova.it',
+                'password' => Hash::make('password')
+            ],
+            [
+                'name' => 'User Cinque',
+                'email' => 'cinque@prova.it',
+                'password' => Hash::make('password')
+            ],
         ];
 
         foreach ($users as $user) {
