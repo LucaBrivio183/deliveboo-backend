@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div id="restaurant-show-container" class="container-fluid p-5 text-center position-relative">
+<div class="container-fluid p-5 text-center position-relative">
     <div class="card ms-restaurant-card px-2 pt-2 d-flex flex-column align-items-center">
         {{-- Image from internet or storage --}}
         <img src={{ Str::startsWith($restaurant->image, 'https://') ? $restaurant->image : asset('storage/' . $restaurant->image) }} class="card-img-top rounded-3" alt={{$restaurant->name}}>
