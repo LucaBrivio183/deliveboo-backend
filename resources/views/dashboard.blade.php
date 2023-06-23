@@ -13,8 +13,7 @@
                 {{-- Card Body --}}
                 <div class="card-body">
                     {{-- Image from internet or storage --}}
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfr-otupqKfVZaes3bB9fDh4enrpHWmMEIVA&usqp=CAU" alt="{{$restaurant->name}}" class="pt-5">
-                    {{-- <img src={{ Str::startsWith($restaurant->image, 'https://') ? $restaurant->image : asset('storage/' . $restaurant->image) }} class="card-img-top rounded-3" alt={{$restaurant->name}}> --}}
+                    <img src={{ Str::startsWith($restaurant->image, 'https://') ? $restaurant->image : asset('storage/' . $restaurant->image) }} class="card-img-top rounded-3" alt={{$restaurant->name}}> 
                     {{-- Name --}}
                     <h1 class="card-title fs-2">{{$restaurant->name}}</h1>
                     {{-- Vat Number --}}
