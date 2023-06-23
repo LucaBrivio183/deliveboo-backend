@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="form-container bg-light rounded py-4 px-5 my-4">
+<div class="form-container bg-light rounded py-4 px-5 my-4 mt-5">
 
 {{-- View if a restaurant already exists --}}
 @if ($currentUser->restaurant)

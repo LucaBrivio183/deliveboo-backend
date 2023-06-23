@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container bg-light rounded py-4 px-5 my-4">
-        <div class="d-flex justify-content-between align-items-center my-4">
+    <div class="container bg-light rounded py-4 px-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center my-4 mt-5">
             <h2>Modifica {{ $product->name }}</h2>
             {{-- create product --}}
-            <a href="{{ route('admin.products.index') }}" class="btn btn-md btn-secondary">Indietro</a>
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-md btn-secondary">Indietro</a>
         </div>
 
         <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" class="form-input-image">

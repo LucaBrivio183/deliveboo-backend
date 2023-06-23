@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container bg-light rounded py-4 px-5 my-4">
-        <div class="d-flex justify-content-between align-items-center my-4">
+        <div class="d-flex justify-content-between align-items-center my-4 mt-5">
             <h2>Aggiungi nuovo prodotto</h2>
             {{-- create product --}}
             <a href="{{ route('admin.products.index') }}" class="btn btn-md btn-secondary">Indietro</a>

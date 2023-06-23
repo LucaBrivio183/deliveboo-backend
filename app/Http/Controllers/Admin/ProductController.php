@@ -127,7 +127,7 @@ class ProductController extends Controller
 
         $newProduct->save();
 
-        return redirect()->route('admin.products.index')->with('message', "Prodotto $newProduct->name creato con successo");
+        return redirect()->route('admin.dashboard')->with('message', "Prodotto $newProduct->name creato con successo");
     }
 
     /**
@@ -206,7 +206,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return to_route('admin.products.index')->with('message', "Prodotto  $product->name modificato con successo");
+        return to_route('admin.dashboard')->with('message', "Prodotto  $product->name modificato con successo");
     }
 
     /**
