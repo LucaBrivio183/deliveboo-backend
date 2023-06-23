@@ -101,8 +101,8 @@ return [
         ],
         [
             'user_id'=>'8',
-            'name'=>'Pokeito',
-            'slug'=>'pokeito',
+            'name'=>'Piedine',
+            'slug'=>'piediene',
             'vat_number'=>'12453543348',
             'address'=>'Piazza del Gozzometro, 1',
             'postal_code'=>'00188',
@@ -128,7 +128,7 @@ return [
             'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT861pNaPx4DKdGNj2a0Nai3vPxvCXx3ECOTg&usqp=CAU',
         ],
         [
-            'user_id'=>'9',
+            'user_id'=>'10',
             'name'=>'Aloe Vera',
             'slug'=>'aloe-vera',
             'vat_number'=>'22453543340',
@@ -142,4 +142,3 @@ return [
             'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf8jRXn1huDwhQwqg1MMgE39WiNq1ooVsrwA&usqp=CAU',
         ],
 ];
-
