@@ -24,11 +24,11 @@ class RestaurantController extends Controller
     {
         $currentUserId = auth()->user()->id;
         // Find the current user's restaurant ID
-        $restaurants = Restaurant::where('user_id', $currentUserId)->get();
+        $restaurant = Restaurant::where('user_id', $currentUserId)->first();
 
         if(auth()->user()->restaurant) {
 
-            return view('admin.restaurants.index', compact('restaurants'));
+            return view('admin.restaurants.index', compact('restaurant'));
         } else {
             return redirect()->route('welcome');
         }
@@ -100,14 +100,15 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        $currentUserId = auth()->user()->id;
-        // Stop users from viewing other users' restaurants 
-        if ($currentUserId === $restaurant->user_id) {
+        // $currentUserId = auth()->user()->id;
+        // // Stop users from viewing other users' restaurants 
+        // if ($currentUserId === $restaurant->user_id) {
 
-            return view('admin.restaurants.show', compact('restaurant'));
-        } else {
-            abort(404);     //access denied
-        };
+        //     return view('admin.restaurants.show', compact('restaurant'));
+        // } else {
+        //     abort(404);     //access denied
+        // };
+        abort(404);
     }
 
 

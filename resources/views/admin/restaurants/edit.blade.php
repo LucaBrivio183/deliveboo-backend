@@ -8,8 +8,8 @@
         <h1 class="fs-2 pe-4">Modifica informazioni del ristorante</h1>
         {{-- Back to dashboard button --}}
         <div>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-success d-none d-md-block">Torna alla dashboard</a>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-success d-block d-md-none">Dashboard</a>
+            <a href="{{ route('admin.restaurants.index') }}" class="btn btn-success d-none d-md-block">Indietro</a>
+            {{-- <a href="{{ route('admin.dashboard') }}" class="btn btn-success d-block d-md-none">Dashboard</a> --}}
         </div>
     </div>
     
