@@ -23,7 +23,7 @@
 <body>
     <div id="app">
         {{-- nav --}}
-        <nav id="nav" class="navbar navbar-expand-md navbar-light shadow-sm">
+        <nav id="nav" class="navbar navbar-expand-md navbar-light shadow-sm fixed-top">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     {{-- logo --}}
@@ -50,11 +50,11 @@
                         </li>
                         {{-- restaurant --}}
                         <li class="nav-item mx-1">
-                            <a class="nav-link text-light" href="{{route('admin.restaurants.index') }}">{{ __('Il tuo ristorante') }}</a>
+                            <a class="nav-link text-light" href="#restaurant-show-container">{{ __('Il tuo ristorante') }}</a>
                         </li>
                         {{-- products --}}
                         <li class="nav-item mx-1">
-                            <a class="nav-link text-light" href="{{route('admin.products.index') }}">{{ __('I tuoi prodotti') }}</a>
+                            <a class="nav-link text-light" href="#products-show-container">{{ __('I tuoi prodotti') }}</a>
                         </li>
                         @endif 
                         @endauth
