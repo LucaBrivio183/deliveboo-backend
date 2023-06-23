@@ -16,13 +16,14 @@ class TypologySeeder extends Seeder
      */
     public function run()
     {
-        $typologies = ['Pizza', 'Cucina asiatica', 'Sushi', 'Panini', 'Kebab', 'Cucina messicana', 'Thailandese', 'Cucina indiana', 'Hamburgeria', 'Cucina italiana', 'Rosticceria', 'Gelateria', 'Pasticceria', 'Supermercato', 'Piadineria', 'Pokeria', 'Vegetariano', 'Halal', 'Colazione', 'Greco', 'Dessert', 'Cucina libanese', 'Cucina americana'];
+        $typologies = ['Pizza', 'Kebab', 'Hamburger', 'Cucina italiana', 'Poke', 'Piadina'];
 
         foreach($typologies as $typology) {
             $newTypology = new Typology();
 
             $newTypology->name = $typology;
             $newTypology->slug = Str::slug($typology);
+            $newTypology->image = 'https://www.visitdubai.com/-/media/images/leisure/campaigns/delicious-dubai-nordics/nordics-campaign-arabic-food-dubai-header-2.jpg?&cw=256&ch=256';
 
             $newTypology->save();
         }

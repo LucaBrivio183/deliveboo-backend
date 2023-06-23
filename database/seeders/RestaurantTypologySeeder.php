@@ -24,14 +24,14 @@ class RestaurantTypologySeeder extends Seeder
             
             // Every two cycles, restaurant_id increases by one
             $newRestaurantTypology->restaurant_id = round($i / 2);
-            $newRestaurantTypology->typology_id = rand(1, 8);
+            $newRestaurantTypology->typology_id = rand(1, 6);
 
             // if the restaurant is at its second cycle(already has a typology)
             if($newRestaurantTypology->restaurant_id === $oldRestaurantId) {
 
                 // check if it already has the old typology
                 while($newRestaurantTypology->typology_id === $oldTypologyId) {
-                    $newRestaurantTypology->typology_id = rand(1, 8);
+                    $newRestaurantTypology->typology_id = rand(1, 6);
                 }
             }
             
