@@ -109,7 +109,7 @@
                     </thead>
                     @foreach ($products as $product)
                         <tr onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer" >
-                            <td>
+                            <td class="text-start">
                                 <span class="me-2"><i class="fa-solid {{ ($product->is_visible) ? 'fa-eye text-success' : 'fa-eye-slash text-danger' }}"></i></span>
                                 {{ $product->name }}
                             </td>
