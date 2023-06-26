@@ -20,7 +20,7 @@ class RestaurantController extends Controller
 
             $restaurants = Restaurant::whereHas('typologies', function (Builder $query) use ($typologiesId) {
                 $query->whereIn('typology_id', $typologiesId);
-            }, '=', $numTypologies)->paginate(5);
+            }, '=', $numTypologies)->with('typologies')->paginate(5);
 
             return response()->json([
                 'success' => true,
