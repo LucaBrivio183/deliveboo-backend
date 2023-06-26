@@ -1,17 +1,16 @@
 @extends('layouts.app')
 @section('content')
 {{-- dashboard container --}}
-<div id="dashboard-container">
+<div class="container mb-3">
     <h2 class="fs-3 mt-4 mx-3 pb-3">
         {{ __('Dashboard utente') }}
     </h2>
     {{-- Restaurant --}}
-    <div class="row align-items-center">
+    <div class="">
         {{-- restaurant container --}}
-        <div id="restaurant-show-container" class="container-fluid p-5 text-center">
-            <div class="card ms-restaurant-card px-2 pt-2 d-flex flex-column align-items-center">
-                {{-- Card Body --}}
-                <div class="card-body">
+        <div class="card ms-restaurant-card ">
+            {{-- Card Body --}}
+            <div class="card-body text-center">
                     {{-- Image from internet or storage --}}
                     <img src={{ Str::startsWith($restaurant->image, 'https://') ? $restaurant->image : asset('storage/' . $restaurant->image) }} class="card-img-top rounded-3" alt={{$restaurant->name}}> 
                     {{-- Name --}}
@@ -83,16 +82,14 @@
                             </form>
                     </div>
                         {{-- /delete modal --}}
-                </div>
             </div>
         </div>
+        
         {{-- /restaurant container --}}
     </div>
     {{-- / Restaurants --}}
     {{-- Product --}}
-    <div class="row align-items-center vh-100">
         {{-- products container --}}
-        <div id="products-show-container" class="container bg-light rounded py-4 px-5 my-4">
             <div class="d-flex justify-content-between align-items-center my-4">
                 <h2>Lista prodotti</h2>
                 <a href="{{ route('admin.products.create') }}" class="btn btn-outline-primary fs-6">+</a>
@@ -101,20 +98,23 @@
             @include('partials.message')
             {{-- row --}}  
             {{-- products table--}}
-            <table class="table table-hover align-middle justify-content-center">
+            <table class="table table-hover table-light w-100">
                 <tbody>
                     <thead>
-                        <th scope="col" class="col-3">Prodotto</th>
-                        <th scope="col" class="col">Prezzo</th>
-                        <th scope="col" class="col-1">Azioni</th>
+                        <tr>
+                            <th scope="col" class="col-3">Prodotto</th>
+                            <th scope="col" class="col">Prezzo</th>
+                            <th scope="col" class="col-1">Azioni</th>
+                        </tr>
                     </thead>
                     @foreach ($products as $product)
                         <tr onclick="window.location='{{route('admin.products.show', $product)}}'" style="cursor: pointer" >
-                            <td class="d-flex align-items-center justify-content-center">
+                            <td>
                                 <span class="me-2"><i class="fa-solid {{ ($product->is_visible) ? 'fa-eye text-success' : 'fa-eye-slash text-danger' }}"></i></span>
                                 {{ $product->name }}
                             </td>
-                            <td>{{ $product->price }} €
+                            <td>
+                                {{ $product->price }} € 
                             </td>
                             <td>
                                 {{-- stopPropagation in order to disable onclick event --}}
@@ -150,9 +150,7 @@
             </table>
             {{-- /products table--}}
             {{-- /row --}}
-        </div>
         {{-- / products container --}}
-    </div>
     {{-- / Products --}}       
 </div>
 {{-- /dashboard container --}}
