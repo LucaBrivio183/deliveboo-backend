@@ -48,14 +48,6 @@
                         <li class="nav-item mx-1">
                             <a class="nav-link text-light" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
-                        {{-- restaurant --}}
-                        <li class="nav-item mx-1">
-                            <a class="nav-link text-light" href="#restaurant-show-container">{{ __('Il tuo ristorante') }}</a>
-                        </li>
-                        {{-- products --}}
-                        <li class="nav-item mx-1">
-                            <a class="nav-link text-light" href="#products-show-container">{{ __('I tuoi prodotti') }}</a>
-                        </li>
                         @endif 
                         @endauth
                     </ul>
