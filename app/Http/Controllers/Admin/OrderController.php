@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use Illuminate\Support\Facades\Request;
 
 class OrderController extends Controller
 {
@@ -24,10 +25,25 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    public function create(Request $request) {
+        try {
+            $data = $request();
+    
+            $newOrder = new Order();
+            $newOrder->fill($data);
+            $newOrder->save();
+
+            return response()->json([
+                'success' => true,
+                'results' => $newOrder,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'results' => json_decode($request()->get('payload'))
+            ], 500);
+        }
+    } 
 
     /**
      * Store a newly created resource in storage.
