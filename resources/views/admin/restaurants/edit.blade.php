@@ -124,7 +124,7 @@
                 @enderror
                 {{-- Image preview --}}
                 <div class="preview">
-                    <img id="file-image-preview" class="img-fluid @if($restaurant->image)mt-4 mb-3 @endif" @if($restaurant->image) src="{{ asset('storage/' . $restaurant->image) }}" @endif>
+                    <img id="file-image-preview" class="img-fluid @if($restaurant->image)mt-4 mb-3 @endif" @if($restaurant->image) src="{{ $restaurant->image }}" @endif>
                 </div>
             </div>
     

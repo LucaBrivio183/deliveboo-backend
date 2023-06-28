@@ -12,7 +12,7 @@
             {{-- Card Body --}}
             <div class="card-body text-center">
                     {{-- Image from internet or storage --}}
-                    <img src={{ Str::startsWith($restaurant->image, 'https://') ? $restaurant->image : asset('storage/' . $restaurant->image) }} class="card-img-top rounded-3" alt={{$restaurant->name}}> 
+                    <img src={{ $restaurant->image }} class="card-img-top rounded-3" alt={{$restaurant->name}}> 
                     {{-- Name --}}
                     <h1 class="card-title fs-2">{{$restaurant->name}}</h1>
                     {{-- Vat Number --}}

@@ -16,14 +16,14 @@ class TypologySeeder extends Seeder
      */
     public function run()
     {
-        $typologies = ['Pizza', 'Kebab', 'Hamburger', 'Cucina italiana', 'Poke', 'Piadina'];
+        $typologies = config('typologies');
 
         foreach($typologies as $typology) {
             $newTypology = new Typology();
 
-            $newTypology->name = $typology;
-            $newTypology->slug = Str::slug($typology);
-            $newTypology->image = 'https://www.visitdubai.com/-/media/images/leisure/campaigns/delicious-dubai-nordics/nordics-campaign-arabic-food-dubai-header-2.jpg?&cw=256&ch=256';
+            $newTypology->name = $typology['name'];
+            $newTypology->slug = $typology['slug'];
+            $newTypology->image = $typology['image'];
 
             $newTypology->save();
         }
