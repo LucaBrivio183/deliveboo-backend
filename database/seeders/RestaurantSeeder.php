@@ -43,6 +43,9 @@ class RestaurantSeeder extends Seeder
             $newRestaurant->min_purchase = $restaurant['min_purchase'];
             $newRestaurant->image = $restaurant['image'];
             $newRestaurant->save();
+
+            $typologyIds = $restaurant['typologies_id']; // Array of typology IDs
+            $newRestaurant->typologies()->attach($typologyIds);
         }
     }
 }

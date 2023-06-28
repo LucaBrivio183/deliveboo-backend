@@ -78,8 +78,8 @@
                 <label for="set_image" class="form-check-label">Attiva per gestire l'immagine</label>
             </div>
             <div class="mb-3 @if(!$product->image) d-none @endif" id="image-input-container">
-                <div class="image-preview">
-                    <img id="file-image-preview" @if($product->image) src="{{ asset('storage/' . $product->image) }}" @endif>
+                <div class="image-preview img-container">
+                    <img id="file-image-preview" @if($product->image) src="{{ $product->image }}" @endif>
                 </div>
 
                 <label for="image" class="form-label">Immagine</label>
