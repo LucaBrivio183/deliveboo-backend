@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Api\OrderController as ApiOrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RestaurantController;
@@ -28,5 +30,7 @@ Route::get('homepage/typologies', [TypologyController::class, 'index']);
 
 // Single restaurant API with products
 Route::get('restaurant/{slug}', [RestaurantController::class, 'show']);
+
+Route::post('order', [ApiOrderController::class, 'store']);
 
 require __DIR__ . '/auth.php';
