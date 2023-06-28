@@ -6,9 +6,9 @@ use App\Mail\NewOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class LeadController extends Controller
+class OrderController extends Controller
 {
-    public function store(Request $request)
+    public function send()
     {
         Mail::to('team.flamingo.boolean@gmail.com')->send(new
         NewOrder());
