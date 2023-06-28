@@ -25,24 +25,8 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request) {
-        try {
-            $data = $request();
-    
-            $newOrder = new Order();
-            $newOrder->fill($data);
-            $newOrder->save();
-
-            return response()->json([
-                'success' => true,
-                'results' => $newOrder,
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'results' => json_decode($request()->get('payload'))
-            ], 500);
-        }
+    public function create() {
+        //
     } 
 
     /**
