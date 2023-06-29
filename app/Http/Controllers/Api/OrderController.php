@@ -10,6 +10,7 @@ use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+
 class OrderController extends Controller
 {
    public function store(Request $request) 

@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\OrderController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +41,9 @@ Route::middleware('auth', 'verified')->prefix('admin')->name('admin.')->group(fu
 
     //categories routes
     Route::resource('categories', CategoryController::class);
+
+    //orders routes
+    Route::resource('orders', OrderController::class)->parameters(['orders' => 'order:id']);
 });
 
 require __DIR__ . '/auth.php';

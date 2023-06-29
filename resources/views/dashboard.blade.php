@@ -2,9 +2,13 @@
 @section('content')
 {{-- dashboard container --}}
 <div class="container mb-3">
-    {{-- <h2 class="fs-3 mt-4 mx-3 pb-3">
-        {{ __('Dashboard utente') }}
-    </h2> --}}
+    <div class="d-flex justify-content-between align-items-center pb-3">
+        <h2 class="fs-3 mt-4 mx-3 pb-3">
+            {{ __('Dashboard utente') }}
+        </h2>
+        <a href="{{ route('admin.orders.index') }}" class="btn btn-warning btn-sm me-2 p-2 m-1">Controlla Ordini</a>     
+
+    </div>
     {{-- Restaurant --}}
     <div class="">
         {{-- restaurant container --}}
@@ -156,7 +160,7 @@
             {{-- /products table--}}
             {{-- /row --}}
         {{-- / products container --}}
-    {{-- / Products --}}       
+    {{-- / Products --}}  
 </div>
 {{-- /dashboard container --}}
 @endsection
