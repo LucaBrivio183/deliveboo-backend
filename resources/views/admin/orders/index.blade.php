@@ -24,14 +24,15 @@
                         @foreach ($order->products as $product)
                           <div>
                             <span>{{$product->name}} </span>
+                            <div>Quantity : {{$product->pivot->quantity}}</div>
                             <span>{{$product->price}} €</span>
                           </div>
-                          <hr>
                         @endforeach
                         {{-- /for each products --}}
+                        <hr>
                         <div>Address:  {{$order->address}}</div>
                         <div>Telefono: {{$order->phone_number}}</div>
-                        <hr>
+                        
                         <div>Totale: {{$order->total_price}} €</div>
                       </div>
                     </div>

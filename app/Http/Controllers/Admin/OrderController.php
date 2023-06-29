@@ -37,6 +37,7 @@ class OrderController extends Controller
      */
     public function getCurrentRestaurantOrders()
     {
+
         // Find the current restaurant's orders
         $orders = Order::where('restaurant_id', $this->getCurrentUserRestaurant())->orderBy('name', 'asc')->get();
         return $orders;
@@ -46,27 +47,24 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCurrentOrderProducts()
+    public function getCurrentOrderProducts(Order $order)
     {
-        $products = OrderProduct::where('order_id','product_id')->with('quantity')->get();
+        $products = OrderProduct::where('order_id', $order->id)->get();
         return $products;
     }
-    
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $order)
     {
         // Find the current user ID
         $currentUser = auth()->user();
-
         $orders = $this->getCurrentRestaurantOrders();
-        $products =$this->getCurrentOrderProducts();
 
-        return view(('admin.orders.index'), compact('orders', 'products'));
+        return view(('admin.orders.index'), compact('orders'));
     }
 
     /**
