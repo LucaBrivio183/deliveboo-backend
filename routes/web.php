@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\StatsController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,9 @@ Route::middleware('auth', 'verified')->prefix('admin')->name('admin.')->group(fu
 
     //orders routes
     Route::resource('orders', OrderController::class)->parameters(['orders' => 'order:id']);
+
+    //orders stats route
+    Route::resource('stats', StatsController::class);
 });
 
 require __DIR__ . '/auth.php';
