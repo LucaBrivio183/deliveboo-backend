@@ -16,7 +16,7 @@ class DashboardController extends Controller
 
             $restaurant = Restaurant::where('user_id', auth()->user()->id)->first();
         
-            $products = Product::where('restaurant_id', $restaurant->id)->take(3)->get();
+            $products = Product::where('restaurant_id', $restaurant->id)->get();
 
             return view('dashboard', compact('restaurant', 'products'));
         } else {

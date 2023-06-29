@@ -3,14 +3,16 @@
 @section('content')
 <div id="products-show-container" class="d-flex justify-content-center mt-5">
     <div class="col-7 my-4 bg-light rounded py-4 px-5">
-        <div class="d-flex justify-content-between align-items-center my-4">
+        <div class="d-flex justify-content-between align-items-center my-3">
             <h2>{{ $product->name }}</h2>
             {{-- back to dashboard --}}
-            <a href="{{ route('admin.products.index') }}" class="btn btn-md btn-secondary">Indietro</a>
+            <a href="{{ route('admin.dashboard') }}#products-list" class="btn btn-md btn-secondary">Indietro</a>
         </div>
         {{-- image --}}
         @if ($product->image)
-            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="my-3">
+        <div class="img-product-show mb-3">
+            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-100 h-100">
+        </div>
         @endif
         
         {{-- description --}}
