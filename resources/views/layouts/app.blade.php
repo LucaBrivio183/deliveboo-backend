@@ -48,6 +48,9 @@
                         <li class="nav-item mx-1">
                             <a class="nav-link text-light" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.orders.index') }}" class="nav-link text-light">Ordini</a>
+                        </li>
                         @endif 
                         @endauth
                     </ul>
