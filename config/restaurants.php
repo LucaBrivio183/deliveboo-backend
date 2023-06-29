@@ -13,7 +13,11 @@ return [
             'phone_number'=>'06 87165 100',
             'delivery_cost'=>3.50,
             'min_purchase'=>6.99,
-            'image'=>'https://logowik.com/content/uploads/images/310_burgerking.jpg',
+            'typologies_id' => [
+                3,
+                7,
+            ],
+            'image'=>'uploads/burgerking.jpg',
         ],
         [
             'user_id'=>'2',
@@ -27,7 +31,11 @@ return [
             'phone_number'=>'06 87165 200',
             'delivery_cost'=>8.50,
             'min_purchase'=>33.24,
-            'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2HelRJBEmm4ZmxzrGPzDrU8mYRXfTU2qK7w&usqp=CAU',
+            'typologies_id' => [
+                5,
+                7,
+            ],
+            'image'=>'uploads/dragons.png',
         ],
         [
             'user_id'=>'3',
@@ -41,7 +49,12 @@ return [
             'phone_number'=>'06 87165 300',
             'delivery_cost'=>2.50,
             'min_purchase'=>40.00,
-            'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfr-otupqKfVZaes3bB9fDh4enrpHWmMEIVA&usqp=CAU',
+            'typologies_id' => [
+                5,
+                6,
+                7,
+            ],
+            'image'=>'uploads/crazyflamingo.png',
         ],
         [
             'user_id'=>'4',
@@ -55,7 +68,12 @@ return [
             'phone_number'=>'06 87165 400',
             'delivery_cost'=>1.50,
             'min_purchase'=>5.50,
-            'image'=>'https://a.mktgcdn.com/p/OnusxQjxa5ZL-z9Fp4_jLLkMKa2Bg1B-lqEe09Lb3Uc/1398x786.jpg',
+            'typologies_id' => [
+                3,
+                6,
+                7,
+            ],
+            'image'=>'uploads/tacobell.jpg',
         ],
         [
             'user_id'=>'5',
@@ -69,7 +87,11 @@ return [
             'phone_number'=>'06 87165 500',
             'delivery_cost'=>1.50,
             'min_purchase'=>5.50,
-            'image'=>'https://img.freepik.com/premium-vector/pizza-logo-design-template_15146-192.jpg?w=2000',
+            'typologies_id' => [
+                1,
+                4,
+            ],
+            'image'=>'uploads/pizzeriagigino.avif',
         ],
         [
             'user_id'=>'6',
@@ -83,7 +105,12 @@ return [
             'phone_number'=>'06 87165 506',
             'delivery_cost'=>1.50,
             'min_purchase'=>5.50,
-            'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqVYlhXNJ3v4EcGOmDhu0NMjBqvUpIQJY0ng&usqp=CAU',
+            'typologies_id' => [
+                1,
+                2,
+                6,
+            ],
+            'image'=>'uploads/rashadkebab.jpeg',
         ],
         [
             'user_id'=>'7',
@@ -97,12 +124,16 @@ return [
             'phone_number'=>'06 87165 507',
             'delivery_cost'=>3.50,
             'min_purchase'=>2.50,
-            'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8s0Y4QAgC9DoZhuLeL7gJd7NkZoOKoWNCZg&usqp=CAU',
+            'typologies_id' => [
+                5,
+                7,
+            ],
+            'image'=>'uploads/pokeio.png',
         ],
         [
             'user_id'=>'8',
             'name'=>'Piedine',
-            'slug'=>'piediene',
+            'slug'=>'piedine',
             'vat_number'=>'12453543348',
             'address'=>'Piazza del Gozzometro, 1',
             'postal_code'=>'00188',
@@ -111,12 +142,16 @@ return [
             'phone_number'=>'06 87165 508',
             'delivery_cost'=>3.50,
             'min_purchase'=>2.50,
-            'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRur-9VUxPbfUzj5TRgpIV0F1kcs9Lz9SgU9A&usqp=CAU',
+            'typologies_id' => [
+                4,
+                6,
+            ],
+            'image'=>'uploads/piedine.jpeg',
         ],
         [
             'user_id'=>'9',
-            'name'=>'Penguin',
-            'slug'=>'penguin',
+            'name'=>'Pizza Penguin',
+            'slug'=>'pizza-penguin',
             'vat_number'=>'12453543349',
             'address'=>'Piazza del Gozzometro, 5',
             'postal_code'=>'00189',
@@ -125,7 +160,12 @@ return [
             'phone_number'=>'06 87165 509',
             'delivery_cost'=>3.50,
             'min_purchase'=>0,
-            'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT861pNaPx4DKdGNj2a0Nai3vPxvCXx3ECOTg&usqp=CAU',
+            'typologies_id' => [
+                1,
+                4,
+                6,
+            ],
+            'image'=>'uploads/pizzapenguin.jpeg',
         ],
         [
             'user_id'=>'10',
@@ -139,6 +179,10 @@ return [
             'phone_number'=>'07 87165 509',
             'delivery_cost'=>3.50,
             'min_purchase'=>5.00,
-            'image'=>'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf8jRXn1huDwhQwqg1MMgE39WiNq1ooVsrwA&usqp=CAU',
+            'typologies_id' => [
+                4,
+                5,
+            ],
+            'image'=>'uploads/aloevera.png',
         ],
 ];

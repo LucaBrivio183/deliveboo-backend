@@ -11,6 +11,6 @@ function showPreview(event) {
         const preview = document.getElementById("file-image-preview");
         preview.src = src;
         preview.style.display = "block";
-        preview.classList.add('mt-4', 'mb-3');
+        preview.classList.add('mt-4', 'mb-3', 'img-container');
     }
 }

@@ -100,7 +100,7 @@
                     @enderror
                 </div>
             @else                                       {{-- if there are no errors in the form, show original typologies --}}
-                <div class="mb-3">
+                <div class="mb-2">
                     <div class="mb-2">Tipologie <span class="required-input">*</span></div>
                     <div class="row border rounded-4 py-2 ps-3 pe-1 gx-0">
                         @foreach ($typologies as $typology)
@@ -116,20 +116,20 @@
                 </div>
             @endif
             {{-- Image --}}
-            <div class="mb-2">
+            <div class="mb-3">
                 <label for="image" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
                 @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 {{-- Image preview --}}
-                <div class="preview">
-                    <img id="file-image-preview" class="img-fluid @if($restaurant->image)mt-4 mb-3 @endif" @if($restaurant->image) src="{{ asset('storage/' . $restaurant->image) }}" @endif>
+                <div class="preview img-container">
+                    <img id="file-image-preview" class="img-fluid @if($restaurant->image)mt-4 mb-3 @endif" @if($restaurant->image) src="{{ $restaurant->image }}" @endif>
                 </div>
             </div>
     
         </div>
-        <div class="d-flex justify-content-between align-items-center pe-4">
+        <div class="d-flex justify-content-between align-items-center pe-4 mt-2">
             {{-- Submit Button --}}
             <button type="submit" class="btn btn-primary">Salva</button>
             <small>I campi contrassegnati da <span class="required-input">*</span> sono obbligatori</small>
