@@ -11,10 +11,11 @@ class RestaurantController extends Controller
 
 {
     // Get all restaurants (paginated by 5) if no typology selected. Get restaurants filtered by typology otherwise.
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
         try {
-            
+
             $typologiesId = $request->all();
             $numTypologies = count($typologiesId);
 
@@ -33,9 +34,14 @@ class RestaurantController extends Controller
             ], 500);
         }
     }
-  
-    public function show(string $slug) {
-        $restaurant = Restaurant::where('slug', $slug)->with('products')->first();
+
+    public function show(string $slug)
+    {
+        $restaurant = Restaurant::where('slug', $slug)->with([
+            'products' => function ($query) {
+                $query->where('is_visible', true);
+            }
+        ])->first();
 
         if ($restaurant) {
             return response()->json([
