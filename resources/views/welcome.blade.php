@@ -5,7 +5,6 @@
     <div class="jumbotron p-5 my-2 rounded-3">
         <div class="container py-5 d-flex justify-content-center" id="welcome-content">
             <div id="content" class="rounded p-5">
-
                 @guest
                 <h1 class="text-center text-light p-3 mt-3">Collabora con noi</h1>
                 <div class="d-flex justify-content-center align-items-center p-5">
