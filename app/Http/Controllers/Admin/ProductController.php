@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Restaurant;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -121,9 +122,9 @@ class ProductController extends Controller
             $newProduct->is_visible = 0;
         };
 
-        // if(isset($data['image'])) {
-        //     $newProduct->image = Storage::put('uploads', $data['image']);
-        // }
+        if(isset($data['image'])) {
+            $newProduct->image = Storage::put('uploads', $data['image']);
+        }
 
         $newProduct->save();
 
@@ -190,18 +191,18 @@ class ProductController extends Controller
             $data['is_visible'] = 0;
         };
 
-        // if (isset($data['image'])) {
-        //     if ($product->image) {
-        //         Storage::delete($product->image);
-        //     }
+        if (isset($data['image'])) {
+            if ($product->image) {
+                Storage::delete($product->image);
+            }
 
-        //     $product->image = Storage::put('uploads', $data['image']);
+            $product->image = Storage::put('uploads', $data['image']);
         // } else if (empty($data['image'])) {
         //     if ($product->image) {
         //         Storage::delete($product->image);
         //         $product->image = null;
         //     }
-        // }
+        }
 
 
         $product->update($data);

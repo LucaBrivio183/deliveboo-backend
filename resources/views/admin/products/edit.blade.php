@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between align-items-center my-4 mt-5">
             <h2>Modifica {{ $product->name }}</h2>
             {{-- create product --}}
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-md btn-secondary">Indietro</a>
+            <a href="{{ route('admin.dashboard') }}#products-list" class="btn btn-md btn-secondary">Indietro</a>
         </div>
 
         <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" class="form-input-image">
@@ -73,20 +73,19 @@
                 <div class="alert alert-danger">{{ $message }} </div>
             @enderror
             {{-- Image --}}
-            <div class="form-check form-switch">
-                <input type="checkbox" class="form-check-input" role="switch" id="set_image" name="set_image" value="1" @if($product->image) checked @endif>
-                <label for="set_image" class="form-check-label">Attiva per gestire l'immagine</label>
-            </div>
-            <div class="mb-3 @if(!$product->image) d-none @endif" id="image-input-container">
-                <div class="image-preview">
-                    <img id="file-image-preview" @if($product->image) src="{{ asset('storage/' . $product->image) }}" @endif>
-                </div>
-
+            <div class="mb-3">
                 <label for="image" class="form-label">Immagine</label>
-                <input type="file" class="form-control" id="image" name="image">
+                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                @error('image')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                {{-- Image preview --}}
+                <div class="preview img-container">
+                    <img id="file-image-preview" class="img-fluid @if($product->image)mt-4 mb-3 @endif" @if($product->image) src="{{ $product->image }}" @endif>
+                </div>
             </div>
             {{-- submit button --}}
-            <button type="submit" class="btn btn-warning">Modifica</button>
+            <button type="submit" class="btn btn-warning my-4">Modifica</button>
         </form>
     </div>
 @endsection

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RestaurantMail;
+use App\Mail\UserMail;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 
 class OrderController extends Controller
@@ -17,6 +20,7 @@ class OrderController extends Controller
 
          $newOrder = new Order();
 
+         // Create a new order
          $newOrder->restaurant_id = $data['restaurant_id'];
          $newOrder->name = $data['name'];
          $newOrder->email = $data['email'];
@@ -26,6 +30,7 @@ class OrderController extends Controller
 
          $newOrder->save();
 
+         // Save the order into the pivot table
          foreach ($data['products'] as $product) {
             $newOrderProduct = new OrderProduct();
    
@@ -35,6 +40,22 @@ class OrderController extends Controller
    
             $newOrderProduct->save();
          }
+
+         $sendToRestaurant = [
+            ['email' => $newOrder->restaurant->user->email, 'name' => $newOrder->restaurant->user->name],
+         ];
+
+         $sendToUser = [
+            ['email' => $newOrder->email, 'name' => $newOrder->name],
+         ];
+
+         // Send an email to the restaurant
+         $restaurantMail = new RestaurantMail($newOrder);
+         Mail::to($sendToRestaurant)->send($restaurantMail);
+
+         // Send an email to the user
+         $userEmail = new UserMail($newOrder);
+         Mail::to($sendToUser)->send($userEmail);
 
          return response()->json([
             'success' => true,
