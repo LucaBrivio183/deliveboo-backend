@@ -4,7 +4,7 @@ return [
     [
         'name' => 'Pizza',
         'slug' => 'pizza',
-        'image' => 'uploads/c-pizze-jpg',
+        'image' => 'uploads/c-pizze.jpg',
     ],
     [
         'name' => 'Kebab',

@@ -445,7 +445,7 @@ return [
     [
         "category_id" => 22,
         "restaurant_id" => 8,
-        "name" => "Piadina al bacon",
+        "name" => "Piadina con stracchino",
         "description" => "",
         "ingredients" => "Stracchino, prosciutto cotto, rucola, pomodori",
         "image" => "uploads/pi-stracchino.jpg",
@@ -484,7 +484,7 @@ return [
         "name" => "Pizza al caviale",
         "description" => "",
         "ingredients" => "Caviale, scaglie d'oro",
-        "image" => "uploads/penp-caviar.webp",
+        "image" => "uploads/penp-caviar.jpg",
         "price" => 18.00,
     ],
     [
