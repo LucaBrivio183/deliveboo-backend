@@ -44,6 +44,11 @@ Route::middleware('auth', 'verified')->prefix('admin')->name('admin.')->group(fu
 
     //orders routes
     Route::resource('orders', OrderController::class)->parameters(['orders' => 'order:id']);
+
+    //orders stats route
+    Route::get('stats', function () {
+        return view('admin.orders.stats');
+    });
 });
 
 require __DIR__ . '/auth.php';
