@@ -1,13 +1,18 @@
 import { Chart } from 'chart.js/auto';
 window.Chart = Chart;
 
+// Get the current year
+const now = new Date();
+const year = now.getFullYear();
 // Months names
 const months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+// Total info
+let totalOrders = 0;
+let amountOfMoney = 0;
 // Number of orders for each month
 let ordersNumber = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 // Money gained each month
 let moneyGained = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
 // Find the order creation month
 function findOrderCreationMonth(order) {
     const date = new Date(order.created_at);
@@ -22,13 +27,25 @@ document.addEventListener('DOMContentLoaded', function () {
     orders.forEach(order => {
         const month = findOrderCreationMonth(order);
         ordersNumber[month] += 1;
+        totalOrders += 1;
     });
 
     orders.forEach(order => {
         const month = findOrderCreationMonth(order);
         const money = Number(order.total_price);
         moneyGained[month] += money;
+        amountOfMoney += money;
     });
+
+    // Set info into the DOM
+    const currentYearDiv = document.getElementById('current-year');
+    currentYearDiv.append(' ' + year);
+
+    const totalOrdersDiv = document.getElementById('total-orders');
+    totalOrdersDiv.append(' ' + totalOrders);
+
+    const amountOfMoneyDiv = document.getElementById('amount-of-money');
+    amountOfMoneyDiv.append(' ' + amountOfMoney + ' ' + '€');
 
     // Create the required charts
     const yearOrders = document.getElementById('this-year-orders');
