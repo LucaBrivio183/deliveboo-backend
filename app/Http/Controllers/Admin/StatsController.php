@@ -45,6 +45,7 @@ class StatsController extends Controller
     public function index()
     {
         $orders = $this->getCurrentYearOrders();
-        return view('admin.orders.stats', ['orders' => [$orders]]);
+        // We need to send a JSON to JavaScript
+        return view('admin.orders.stats', ['orders' => $orders]);
     }
 }

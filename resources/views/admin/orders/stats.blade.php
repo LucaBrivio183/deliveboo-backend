@@ -6,6 +6,7 @@
     <canvas id="this-year-orders" width="400" height="150"></canvas>
     
     <script>
+        // Send the JSON to JavaScript
         const orders = {{ Js::from($orders) }};
     </script>
 </div>
