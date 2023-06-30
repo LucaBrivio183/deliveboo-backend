@@ -30,10 +30,10 @@ class StatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCurrentRestaurantOrders()
+    public function getCurrentYearOrders()
     {
-        // Find the current restaurant's orders
-        $orders = Order::where('restaurant_id', $this->getCurrentUserRestaurant())->orderBy('name', 'asc')->get();
+        // Find the current restaurant's orders within the current year
+        $orders = Order::where('restaurant_id', $this->getCurrentUserRestaurant())->whereYear('created_at', date('Y'))->get();
         return $orders;
     }
 
@@ -44,10 +44,7 @@ class StatsController extends Controller
      */
     public function index()
     {
-        // Find the current user ID
-        $currentUser = auth()->user();
-        $orders = $this->getCurrentRestaurantOrders();
-
+        $orders = $this->getCurrentYearOrders();
         return view(('admin.orders.stats'), compact('orders'));
     }
 }
