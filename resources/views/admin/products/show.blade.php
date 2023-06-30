@@ -11,7 +11,7 @@
         {{-- image --}}
         @if ($product->image)
         <div class="img-product-show mb-3">
-            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-100 h-100">
+            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-100 h-100 rounded">
         </div>
         @endif
         

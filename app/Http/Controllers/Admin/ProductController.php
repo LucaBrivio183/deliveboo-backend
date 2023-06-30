@@ -222,6 +222,6 @@ class ProductController extends Controller
 
         Product::where('restaurant_id', $this->getCurrentUserRestaurant())->where('name', $old_name)->delete();
 
-        return redirect()->route('admin.products.index')->with('message', "Prodotto $old_name eliminato con successo");
+        return redirect()->route('admin.dashboard')->with('message', "Prodotto $old_name eliminato con successo");
     }
 }
