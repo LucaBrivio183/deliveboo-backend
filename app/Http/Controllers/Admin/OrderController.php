@@ -39,7 +39,7 @@ class OrderController extends Controller
     {
 
         // Find the current restaurant's orders
-        $orders = Order::where('restaurant_id', $this->getCurrentUserRestaurant())->orderBy('name', 'asc')->get();
+        $orders = Order::where('restaurant_id', $this->getCurrentUserRestaurant())->orderBy('created_at', 'desc')->get();
         return $orders;
     }
     /**
