@@ -16,13 +16,18 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$order->id}}" aria-expanded="false" aria-controls="collapse{{$order->id}}">
-                          Ordine # {{$order->id}} - {{$order->name}} 
+                          Ordine # {{$order->id}} 
+                          <strong class="ms-3 me-1">totale: </strong>
+                          <span class="me-4">{{$order->total_price}}€ |</span>  
+                          <span class="text-secondary me-4">{{$order->created_at->format(config('app.date_format'))}}</span>
+                          <span>{{$order->created_at->diffForHumans()}}</span>
                         </button>
                       </h2>
                       <div id="collapse{{$order->id}}" class="accordion-collapse collapse" data-bs-parent="#accordionOrder">
                         <div class="accordion-body">
                           <div class="py-2">
                             <h3 class="fs-3 mb-2">Informazioni cliente</h3>
+                            <div><strong class="me-1">Nome:</strong> {{ $order->name }}</div>
                             <div><strong class="me-1">Indirizzo:</strong>  {{$order->address}}</div>
                             <div><strong class="me-1">Telefono:</strong> {{$order->phone_number}}</div>
                             <div class="mb-2"><strong class="me-1">Email:</strong> {{ $order->email }}</div>
