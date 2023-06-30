@@ -45,6 +45,6 @@ class StatsController extends Controller
     public function index()
     {
         $orders = $this->getCurrentYearOrders();
-        return view(('admin.orders.stats'), compact('orders'));
+        return view('admin.orders.stats', ['orders' => [$orders]]);
     }
 }
