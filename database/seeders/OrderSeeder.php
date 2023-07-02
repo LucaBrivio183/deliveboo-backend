@@ -16,36 +16,74 @@ class OrderSeeder extends Seeder
      *
      * @return void
      */
+    // public function run(Faker $faker)
+    // {
+    //     $products = Product::all();
+    //     $startOfYear = Carbon::create(2023, 1, 1);
+
+    //     for ($i = 1; $i <= 100; $i++) {
+
+    //         $timestamp = $startOfYear->copy()->addDays($faker->numberBetween(0, 364))->addMinutes($faker->numberBetween(0, 1439));
+    //         $newOrder = new Order();
+
+    //         $newOrder->restaurant_id = 1;
+    //         $newOrder->name = $faker->name();
+    //         $newOrder->email = $faker->email();
+    //         $newOrder->address = $faker->streetAddress();
+    //         $newOrder->phone_number = $faker->e164PhoneNumber() ;
+    //         $newOrder->total_price = rand(100, 1000) / 10;
+    //         $newOrder->created_at = $timestamp;
+    //         $newOrder->updated_at = $timestamp;
+
+    //         $newOrder->save();
+
+    //         $productsWithQuantities = $products->random(rand(1, 5))->mapWithKeys(function ($product) {
+    //             return [$product->id => ['quantity' => rand(1, 5)]];
+    //         });
+
+    //         // $newOrder->products()->attach($productsWithQuantities);
+    //         $newOrder->products()->attach($productsWithQuantities->toArray(), [
+    //             'created_at' => $timestamp,
+    //             'updated_at' => $timestamp,
+    //         ]);
+    //     };
+    // }
     public function run(Faker $faker)
-    {
-        $products = Product::all();
-        $startOfYear = Carbon::create(2023, 1, 1);
+{
+    $products = Product::all();
+    $startOfYear = Carbon::create(2023, 1, 1);
+    $endOfMonth = Carbon::create(2023, 6, 30)->endOfDay();
+    $totalOrders = 500;
+    $ordersCreated = 0;
 
-        for ($i = 1; $i <= 100; $i++) {
+    $timestamp = $startOfYear->copy();
 
-            $timestamp = $startOfYear->copy()->addDays($faker->numberBetween(0, 364))->addMinutes($faker->numberBetween(0, 1439));
-            $newOrder = new Order();
+    while ($ordersCreated < $totalOrders && $timestamp <= $endOfMonth) {
+        $timestamp = $timestamp->addMinutes($faker->numberBetween(1, 1440)); // Add random minutes to the timestamp
 
-            $newOrder->restaurant_id = 1;
-            $newOrder->name = $faker->name();
-            $newOrder->email = $faker->email();
-            $newOrder->address = $faker->streetAddress();
-            $newOrder->phone_number = $faker->e164PhoneNumber() ;
-            $newOrder->total_price = rand(100, 1000) / 10;
-            $newOrder->created_at = $timestamp;
-            $newOrder->updated_at = $timestamp;
+        $newOrder = new Order();
 
-            $newOrder->save();
+        $newOrder->restaurant_id = 1;
+        $newOrder->name = $faker->name();
+        $newOrder->email = $faker->email();
+        $newOrder->address = $faker->streetAddress();
+        $newOrder->phone_number = $faker->e164PhoneNumber();
+        $newOrder->total_price = rand(100, 1000) / 10;
+        $newOrder->created_at = $timestamp;
+        $newOrder->updated_at = $timestamp;
 
-            $productsWithQuantities = $products->random(rand(1, 5))->mapWithKeys(function ($product) {
-                return [$product->id => ['quantity' => rand(1, 5)]];
-            });
+        $newOrder->save();
 
-            // $newOrder->products()->attach($productsWithQuantities);
-            $newOrder->products()->attach($productsWithQuantities->toArray(), [
-                'created_at' => $timestamp,
-                'updated_at' => $timestamp,
-            ]);
-        };
+        $productsWithQuantities = $products->random(rand(1, 5))->mapWithKeys(function ($product) {
+            return [$product->id => ['quantity' => rand(1, 5)]];
+        });
+
+        $newOrder->products()->attach($productsWithQuantities->toArray(), [
+            'created_at' => $timestamp,
+            'updated_at' => $timestamp,
+        ]);
+
+        $ordersCreated++;
     }
+}
 }
