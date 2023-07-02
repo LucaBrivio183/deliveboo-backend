@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     totalOrdersDiv.append(' ' + totalOrders);
 
     const amountOfMoneyDiv = document.getElementById('amount-of-money');
-    amountOfMoneyDiv.append(' ' + amountOfMoney + ' ' + '€');
+    amountOfMoneyDiv.append(' ' + amountOfMoney.toFixed(2) + ' ' + '€');
 
     // Create the required charts
     const yearOrders = document.getElementById('this-year-orders');
