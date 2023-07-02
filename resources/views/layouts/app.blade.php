@@ -52,9 +52,6 @@
                         <li class="nav-item mx-1">
                             <a href="{{ route('admin.orders.index') }}" class="nav-link text-light">I tuoi ordini</a>
                         </li>
-                        <li class="nav-item mx-1">
-                            <a href="{{ route('admin.stats.index') }}" class="nav-link text-light">Le tue statistiche</a>
-                        </li>
                         <li>
                             <a href="{{ route('admin.stats.index') }}" class="nav-link text-light">Bilancio</a>
                         </li>
