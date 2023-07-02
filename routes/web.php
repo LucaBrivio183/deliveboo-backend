@@ -27,9 +27,9 @@ Route::get('/', function () {
 
 Route::middleware('auth', 'verified')->prefix('admin')->name('admin.')->group(function () {
     //profile routes
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //dashboard routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

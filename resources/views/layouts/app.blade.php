@@ -32,7 +32,7 @@
                         <img src="{{url('/logo-pink-cut.png')}}" alt="logo" id="logo_cut">
                     </div>
                     <div class="ms-3 me-3">
-                        <h3>DeliveBoo</h3>
+                        <h3>FlaminGoo</h3>
                     </div>
                 </a>
 
@@ -49,8 +49,11 @@
                         <li class="nav-item mx-1">
                             <a class="nav-link text-light" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
-                        <li>
-                            <a href="{{ route('admin.orders.index') }}" class="nav-link text-light">Ordini</a>
+                        <li class="nav-item mx-1">
+                            <a href="{{ route('admin.orders.index') }}" class="nav-link text-light">I tuoi ordini</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a href="{{ route('admin.stats.index') }}" class="nav-link text-light">Le tue statistiche</a>
                         </li>
                         <li>
                             <a href="{{ route('admin.stats.index') }}" class="nav-link text-light">Bilancio</a>
