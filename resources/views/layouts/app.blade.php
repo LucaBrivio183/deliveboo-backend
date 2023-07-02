@@ -52,6 +52,9 @@
                         <li>
                             <a href="{{ route('admin.orders.index') }}" class="nav-link text-light">Ordini</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.stats.index') }}" class="nav-link text-light">Bilancio</a>
+                        </li>
                         @endif 
                         @endauth
                     </ul>

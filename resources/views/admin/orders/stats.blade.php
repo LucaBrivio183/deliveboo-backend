@@ -11,7 +11,7 @@
 <div class="container bg-white">
     {{-- Canvas is needed in order to render the chart --}}
     <canvas id="this-year-orders" width="400" height="150"></canvas>
-    <canvas id="this-year-money" width="400" height="150"></canvas>
+    <canvas id="this-year-money" width="400" height="150" class="my-5"></canvas>
     
     <script>
         // Send the JSON to JavaScript
