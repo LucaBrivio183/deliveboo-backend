@@ -15,6 +15,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Font awesome CDN -->
+    <link rel="shortcut icon" href="{{ asset('/favicon.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
@@ -31,7 +32,8 @@
                         <img src="{{url('/logo-pink-cut.png')}}" alt="logo" id="logo_cut">
                     </div>
                     <div class="ms-3 me-3">
-                        <h3>FraminGoo</h3>
+                        <h3>FlaminGoo</h3>
+
                     </div>
                 </a>
 
@@ -48,8 +50,11 @@
                         <li class="nav-item mx-1">
                             <a class="nav-link text-light" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
+                        <li class="nav-item mx-1">
+                            <a href="{{ route('admin.orders.index') }}" class="nav-link text-light">I tuoi ordini</a>
+                        </li>
                         <li>
-                            <a href="{{ route('admin.orders.index') }}" class="nav-link text-light">Ordini</a>
+                            <a href="{{ route('admin.stats.index') }}" class="nav-link text-light">Bilancio</a>
                         </li>
                         @endif 
                         @endauth
