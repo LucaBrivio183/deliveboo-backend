@@ -31,6 +31,7 @@
     <div id="description">
         <div class="container">
             <p>FlaminGoo è una società Italiana di consegna a domicilio di cibo, fondata online nel 2023 da Vittorio Corradi, Luca Brivio, Eugenia Rossi, Giorgia Galbulli Cavazzini e Vittoria Romano. Opera nella città di Roma e periferia.</p>
+
         </div>
     </div>
 </div>
