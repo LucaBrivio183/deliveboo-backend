@@ -31,7 +31,7 @@
                         <img src="{{url('/logo-pink-cut.png')}}" alt="logo" id="logo_cut">
                     </div>
                     <div class="ms-3 me-3">
-                        <h3>DeliveBoo</h3>
+                        <h3>FraminGoo</h3>
                     </div>
                 </a>
 
